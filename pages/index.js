@@ -1,3 +1,3 @@
-const HomePage = () => <h1>TODO: Make the app. ;)</h1>;
+const HomePage = () => <h1>Home</h1>;
 
 export default HomePage;
