@@ -1,3 +1,9 @@
-const HomePage = () => <h1>TODO: Make the app. ;)</h1>;
+import { Layout } from "../components";
+
+const HomePage = () => (
+  <Layout title="No-Code Overlays App">
+    <h1>Home page works!</h1>
+  </Layout>
+);
 
 export default HomePage;
