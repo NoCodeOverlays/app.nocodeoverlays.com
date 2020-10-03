@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 import { getUser, signOut } from "../../lib/api";
+import { Button } from "../";
 import styles from "./Layout.module.scss";
 
 const Layout = ({ title, children }) => {
@@ -36,7 +37,7 @@ const Layout = ({ title, children }) => {
         <h1>No-Code Overlays</h1>
         <div>
           <span>Hey, {user.email}!</span>
-          <button
+          <Button
             onClick={() => {
               signOut().then(() => {
                 setUser();
@@ -44,7 +45,7 @@ const Layout = ({ title, children }) => {
             }}
           >
             Sign Out
-          </button>
+          </Button>
         </div>
       </header>
       <main>{children}</main>
