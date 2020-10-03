@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { signIn } from "../lib/api";
 
-import { Button } from "../components";
+import { Button, Input } from "../components";
 import styles from "../stylesheets/Pages.module.scss";
 
 const LoginPage = () => {
@@ -15,22 +15,22 @@ const LoginPage = () => {
       <div>
         <h1>Welcome to No-Code Overlays!</h1>
         <h2>Please log in to get going.</h2>
-        <label htmlFor="email">Email</label>
-        <input
+        <Input
           id="email"
           type="email"
+          label="Email"
           value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
+          onChange={(value) => {
+            setEmail(value);
           }}
         />
-        <label htmlFor="password">Password</label>
-        <input
+        <Input
           id="password"
           type="password"
+          label="Password"
           value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
+          onChange={(value) => {
+            setPassword(value);
           }}
         />
         <Button
