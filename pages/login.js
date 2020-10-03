@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { signIn } from "../lib/api";
 
+import { Button } from "../components";
 import styles from "../stylesheets/Pages.module.scss";
 
 const LoginPage = () => {
@@ -32,7 +33,7 @@ const LoginPage = () => {
             setPassword(e.target.value);
           }}
         />
-        <button
+        <Button
           onClick={() => {
             signIn(email, password)
               .then((res) => {
@@ -46,7 +47,7 @@ const LoginPage = () => {
           }}
         >
           Let's Go!
-        </button>
+        </Button>
       </div>
     </div>
   );
