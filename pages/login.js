@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { signIn } from "../lib/api";
 
@@ -12,6 +13,10 @@ const LoginPage = () => {
 
   return (
     <div className={styles.Login}>
+      <Head>
+        <title>No Code Overlays | Log In</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div>
         <h1>Welcome to No-Code Overlays!</h1>
         <h2>Please log in to get going.</h2>
