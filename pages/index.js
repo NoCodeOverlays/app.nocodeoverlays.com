@@ -1,8 +1,16 @@
-import { Layout } from "../components";
+import { Icon, Layout } from "../components";
 
 const HomePage = () => (
   <Layout title="No-Code Overlays App">
-    <h1>Home page works!</h1>
+    <h1>Icons for PR Testing</h1>
+    <p>medium (default)</p>
+    <Icon name="pencil-alt" />
+
+    <p>small</p>
+    <Icon name="pencil-alt" medium />
+
+    <p>large</p>
+    <Icon name="pencil-alt" large />
   </Layout>
 );
 
