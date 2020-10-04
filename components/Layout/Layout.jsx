@@ -30,7 +30,7 @@ const Layout = ({ title, children }) => {
   return (
     <div className={styles.Layout}>
       <Head>
-        <title>{title}</title>
+        <title>{"No Code Overlays" || title}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <header>
