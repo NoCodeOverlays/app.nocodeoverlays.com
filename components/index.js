@@ -5,3 +5,5 @@ export { Icon } from "./Icon";
 export { Input } from "./Input";
 
 export { Layout } from "./Layout";
+
+export { Sidebar } from "./Sidebar";
