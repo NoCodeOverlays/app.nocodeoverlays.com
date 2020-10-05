@@ -1,8 +1,13 @@
-import { Layout } from "../../components";
+import { Layout, Sidebar } from "../../components";
+
+import styles from "../../stylesheets/Pages.module.scss";
 
 const EditOverlayPage = () => (
   <Layout title="Edit Overlay">
-    <h1>Hello, EditOverlayPage!</h1>
+    <div className={styles.EditOverlay}>
+      <div>This is where the overlay contents will go</div>
+      <Sidebar />
+    </div>
   </Layout>
 );
 

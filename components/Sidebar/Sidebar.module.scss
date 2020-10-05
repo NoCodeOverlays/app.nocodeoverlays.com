@@ -1,0 +1,12 @@
+@import "../../stylesheets/variables";
+
+.Sidebar {
+  width: 300px;
+  height: calc(100vh - #{$header-height});
+  background-color: #f5f5f5;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 12px;
+}
