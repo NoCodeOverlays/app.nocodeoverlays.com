@@ -1,7 +1,7 @@
 import styles from "./Sidebar.module.scss";
 
-const Sidebar = () => {
-  return <div className={styles.Sidebar}>The Sidebar</div>;
+const Sidebar = ({ children }) => {
+  return <div className={styles.Sidebar}>{children}</div>;
 };
 
 export default Sidebar;
