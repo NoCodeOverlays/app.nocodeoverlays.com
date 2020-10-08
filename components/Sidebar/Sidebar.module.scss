@@ -9,4 +9,11 @@
   top: 0;
   right: 0;
   padding: 12px;
+
+  // Section of the Sidebar
+  & > div {
+    h2 {
+      margin-bottom: 12px;
+    }
+  }
 }
