@@ -1,9 +1,11 @@
-export { Button } from "./Button";
+export { Button } from './Button';
 
-export { Icon } from "./Icon";
+export { Icon } from './Icon';
 
-export { Input } from "./Input";
+export { Input } from './Input';
 
-export { Layout } from "./Layout";
+export { Layout } from './Layout';
 
-export { Sidebar } from "./Sidebar";
+export { Modal } from './Modal';
+
+export { Sidebar } from './Sidebar';
