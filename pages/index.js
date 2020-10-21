@@ -1,38 +1,15 @@
-import { useState } from 'react';
-import { Button, Layout, Modal } from '../components';
+import Link from 'next/link';
+import { Layout } from '../components';
 
-const HomePage = () => {
-  const [showModal, setShowModal] = useState(false);
+const HomePage = () => (
+  <Layout title="No-Code Overlays App">
+    <h1>Temporary area for testing things</h1>
+    <br />
 
-  return (
-    <Layout title="No-Code Overlays App">
-      <h1>Temporary area for testing things</h1>
-      <br />
-
-      <Button
-        onClick={() => {
-          setShowModal(!showModal);
-        }}
-      >
-        Open Modal
-      </Button>
-      {showModal && (
-        <Modal
-          title="Modal title"
-          onClose={() => {
-            setShowModal(false);
-          }}
-          buttons={[
-            <Button>Hi</Button>,
-            <Button>Hi</Button>,
-            <Button>Hi</Button>,
-          ]}
-        >
-          <h2>Hi, I'm a modal!</h2>
-        </Modal>
-      )}
-    </Layout>
-  );
-};
+    <Link href="/edit/overlay">
+      <a>Edit Overlay</a>
+    </Link>
+  </Layout>
+);
 
 export default HomePage;
