@@ -1,19 +1,43 @@
-@import "../../stylesheets/variables";
+@import '../../stylesheets/variables';
 
 .Sidebar {
   width: 300px;
   height: calc(100vh - #{$header-height});
+  max-height: calc(100vh - #{$header-height});
+  overflow-y: scroll;
   background-color: #f5f5f5;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
   position: absolute;
-  top: 0;
+  top: $header-height;
   right: 0;
   padding: 12px;
 
   // Section of the Sidebar
   & > div {
+    & > div:first-child {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+
+      h2 {
+        margin-bottom: 0;
+      }
+
+      button {
+        width: 32px;
+        height: 32px;
+        border-radius: 16px;
+        padding: 0;
+      }
+    }
+
     h2 {
       margin-bottom: 12px;
     }
+  }
+
+  & > button:last-child {
+    margin-top: 60px;
   }
 }
