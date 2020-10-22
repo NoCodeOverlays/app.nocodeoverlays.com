@@ -1,130 +1,18 @@
 import { useLayoutEffect, useState } from 'react';
-import { Listbox } from '@amb-codes-crafts/a11y-components';
 import {
   createOverlayWidget,
   getOverlayData,
   updateOverlayData,
 } from '../../lib/api';
-import { Button, Icon, Input, Layout, Modal, Sidebar } from '../../components';
+import {
+  AddWidgetModal,
+  Button,
+  Icon,
+  Input,
+  Layout,
+  Sidebar,
+} from '../../components';
 import styles from '../../stylesheets/Pages.module.scss';
-
-const typesToAttributes = {
-  color: [
-    { id: 'width', label: 'Width', type: 'number' },
-    { id: 'height', label: 'Height', type: 'number' },
-    { id: 'xPosition', label: 'X Position', type: 'number' },
-    { id: 'yPosition', label: 'Y Position', type: 'number' },
-    { id: 'color', label: 'Color (Hex)', type: 'text' },
-  ],
-  image: [
-    { id: 'width', label: 'Width', type: 'number' },
-    { id: 'height', label: 'Height', type: 'number' },
-    { id: 'xPosition', label: 'X Position', type: 'number' },
-    { id: 'yPosition', label: 'Y Position', type: 'number' },
-    { id: 'url', label: 'URL', type: 'text' },
-  ],
-  text: [
-    { id: 'text', label: 'Text', type: 'text' },
-    { id: 'fontFamily', label: 'Font Family', type: 'select' },
-    { id: 'fontSize', label: 'Font Size', type: 'number' },
-    { id: 'xPosition', label: 'X Position', type: 'number' },
-    { id: 'yPosition', label: 'Y Position', type: 'number' },
-  ],
-};
-
-const AddWidgetModal = ({ onClose, onAdd }) => {
-  const [widgetType, setWidgetType] = useState('');
-  const [attributes, setAttributes] = useState({});
-  const [fontFamilies, setFontFamilies] = useState([]);
-
-  useLayoutEffect(() => {
-    if (widgetType === 'text') {
-      fetch(
-        `https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=${process.env.NEXT_PUBLIC_GOOGLE_WEB_FONTS_DEVELOPER_API_KEY}`
-      ).then((res) => {
-        res.json().then((data) => {
-          const families = data.items
-            .slice(0, 100)
-            .map((font) => font.family)
-            .sort()
-            .map((family, index) => ({ id: index, label: family }));
-          setFontFamilies(families);
-        });
-      });
-    }
-  }, [widgetType]);
-
-  return (
-    <Modal
-      title="Add a widget"
-      onClose={onClose}
-      buttons={[
-        <Button
-          disabled={!widgetType}
-          onClick={() => {
-            onAdd(attributes);
-          }}
-        >
-          Add
-        </Button>,
-      ]}
-    >
-      <label htmlFor="setWidgetType">Widget type</label>
-      <select
-        id="widgetType"
-        value={widgetType}
-        onChange={(e) => {
-          setWidgetType(e.target.value);
-        }}
-      >
-        <option value="">Choose a type</option>
-        <option value="color">Color Block</option>
-        <option value="image">Image</option>
-        <option value="text">Text Block</option>
-      </select>
-
-      {widgetType && (
-        <>
-          {typesToAttributes[widgetType].map(({ id, label, type }) => {
-            if (id === 'fontFamily') {
-              return (
-                <Listbox
-                  label="Font family"
-                  options={fontFamilies}
-                  onChange={(nextOptionId) => {
-                    const selectedFontFamily = fontFamilies[nextOptionId].label;
-                    setAttributes({
-                      ...attributes,
-                      [id]: selectedFontFamily,
-                      type: widgetType,
-                    });
-                  }}
-                />
-              );
-            }
-
-            return (
-              <Input
-                id={id}
-                key={`widgetInput-${id}`}
-                label={label}
-                type={type}
-                value={attributes[id] || ''}
-                onChange={(value) => {
-                  setAttributes({
-                    ...attributes,
-                    [id]: value,
-                    type: widgetType,
-                  });
-                }}
-              />
-            );
-          })}
-        </>
-      )}
-    </Modal>
-  );
-};
 
 const EditOverlayPage = ({ data }) => {
   const [showAddWidgetModal, setShowAddWidgetModal] = useState(false);
