@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
+import { Listbox } from '@amb-codes-crafts/a11y-components';
 import {
   createOverlayWidget,
   getOverlayData,
@@ -22,11 +23,36 @@ const typesToAttributes = {
     { id: 'yPosition', label: 'Y Position', type: 'number' },
     { id: 'url', label: 'URL', type: 'text' },
   ],
+  text: [
+    { id: 'text', label: 'Text', type: 'text' },
+    { id: 'fontFamily', label: 'Font Family', type: 'select' },
+    { id: 'fontSize', label: 'Font Size', type: 'number' },
+    { id: 'xPosition', label: 'X Position', type: 'number' },
+    { id: 'yPosition', label: 'Y Position', type: 'number' },
+  ],
 };
 
 const AddWidgetModal = ({ onClose, onAdd }) => {
   const [widgetType, setWidgetType] = useState('');
   const [attributes, setAttributes] = useState({});
+  const [fontFamilies, setFontFamilies] = useState([]);
+
+  useLayoutEffect(() => {
+    if (widgetType === 'text') {
+      fetch(
+        `https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=${process.env.NEXT_PUBLIC_GOOGLE_WEB_FONTS_DEVELOPER_API_KEY}`
+      ).then((res) => {
+        res.json().then((data) => {
+          const families = data.items
+            .slice(0, 100)
+            .map((font) => font.family)
+            .sort()
+            .map((family, index) => ({ id: index, label: family }));
+          setFontFamilies(families);
+        });
+      });
+    }
+  }, [widgetType]);
 
   return (
     <Modal
@@ -54,26 +80,46 @@ const AddWidgetModal = ({ onClose, onAdd }) => {
         <option value="">Choose a type</option>
         <option value="color">Color Block</option>
         <option value="image">Image</option>
+        <option value="text">Text Block</option>
       </select>
 
       {widgetType && (
         <>
-          {typesToAttributes[widgetType].map(({ id, label, type }) => (
-            <Input
-              id={id}
-              key={`widgetInput-${id}`}
-              label={label}
-              type={type}
-              value={attributes[id] || ''}
-              onChange={(value) => {
-                setAttributes({
-                  ...attributes,
-                  [id]: value,
-                  type: widgetType,
-                });
-              }}
-            />
-          ))}
+          {typesToAttributes[widgetType].map(({ id, label, type }) => {
+            if (id === 'fontFamily') {
+              return (
+                <Listbox
+                  label="Font family"
+                  options={fontFamilies}
+                  onChange={(nextOptionId) => {
+                    const selectedFontFamily = fontFamilies[nextOptionId].label;
+                    setAttributes({
+                      ...attributes,
+                      [id]: selectedFontFamily,
+                      type: widgetType,
+                    });
+                  }}
+                />
+              );
+            }
+
+            return (
+              <Input
+                id={id}
+                key={`widgetInput-${id}`}
+                label={label}
+                type={type}
+                value={attributes[id] || ''}
+                onChange={(value) => {
+                  setAttributes({
+                    ...attributes,
+                    [id]: value,
+                    type: widgetType,
+                  });
+                }}
+              />
+            );
+          })}
         </>
       )}
     </Modal>
@@ -88,6 +134,24 @@ const EditOverlayPage = ({ data }) => {
   const [widgets, setWidgets] = useState(
     data && data.widgets ? data.widgets : {}
   );
+
+  useLayoutEffect(() => {
+    const WebFont = require('webfontloader');
+    const familiesToLoad = Object.keys(widgets)
+      .filter((widgetKey) => widgets[widgetKey].type === 'text')
+      .map((widgetKey) => {
+        console.log(widgets[widgetKey].fontFamily);
+        return widgets[widgetKey].fontFamily;
+      });
+
+    if (familiesToLoad.length) {
+      WebFont.load({
+        google: {
+          families: familiesToLoad,
+        },
+      });
+    }
+  }, [widgets]);
 
   return (
     <Layout title="Edit Overlay">
@@ -130,6 +194,23 @@ const EditOverlayPage = ({ data }) => {
                     left: `${widget.xPosition}px`,
                   }}
                 />
+              );
+            } else if (widget.type === 'text') {
+              return (
+                <span
+                  key={`widget-${index}`}
+                  style={{
+                    width: `${widget.width}px`,
+                    height: `${widget.height}px`,
+                    position: 'absolute',
+                    top: `${widget.yPosition}px`,
+                    left: `${widget.xPosition}px`,
+                    fontFamily: widget.fontFamily,
+                    fontSize: `${widget.fontSize}px`,
+                  }}
+                >
+                  {widget.text}
+                </span>
               );
             }
           })}
@@ -176,6 +257,7 @@ const EditOverlayPage = ({ data }) => {
                     const widget = widgets[widgetKey];
                     return (
                       <div
+                        key={`widget-${widgetKey}`}
                         style={{
                           border: '1px solid gray',
                           borderRadius: '4px',
@@ -186,8 +268,14 @@ const EditOverlayPage = ({ data }) => {
                         }}
                       >
                         {Object.keys(widget).map((attribute) => (
-                          <span style={{ display: 'block' }}>
-                            <strong>{attribute}:</strong> {widget[attribute]}
+                          <span
+                            key={`widgetAttribute-${attribute}-${widgetKey}`}
+                            style={{ display: 'block' }}
+                          >
+                            <strong>{attribute}:</strong>{' '}
+                            {widget[attribute].family
+                              ? widget[attribute].family
+                              : widget[attribute]}
                           </span>
                         ))}
                         <Button
