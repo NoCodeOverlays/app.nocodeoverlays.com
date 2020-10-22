@@ -1,7 +1,7 @@
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-
-import "../stylesheets/global.scss";
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import '@amb-codes-crafts/a11y-components/dist/index.css';
+import '../stylesheets/global.scss';
 
 library.add(fas);
 
