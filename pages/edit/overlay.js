@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import FontPicker from 'font-picker-react';
+import { useLayoutEffect, useState } from 'react';
 import {
   createOverlayWidget,
   getOverlayData,
@@ -31,11 +30,6 @@ const typesToAttributes = {
     { id: 'yPosition', label: 'Y Position', type: 'number' },
   ],
 };
-
-const webFontLoaderScriptTag = document.createElement('script');
-webFontLoaderScriptTag.src =
-  'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
-document.head.appendChild(webFontLoaderScriptTag);
 
 const AddWidgetModal = ({ onClose, onAdd }) => {
   const [widgetType, setWidgetType] = useState('');
@@ -76,6 +70,7 @@ const AddWidgetModal = ({ onClose, onAdd }) => {
             if (id === 'fontFamily') {
               return (
                 <FontPicker
+                  key={`widgetInput-${id}`}
                   apiKey={
                     process.env.NEXT_PUBLIC_GOOGLE_WEB_FONTS_DEVELOPER_API_KEY
                   }
@@ -113,6 +108,8 @@ const AddWidgetModal = ({ onClose, onAdd }) => {
   );
 };
 
+let FontPicker;
+
 const EditOverlayPage = ({ data }) => {
   const [showAddWidgetModal, setShowAddWidgetModal] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -122,14 +119,20 @@ const EditOverlayPage = ({ data }) => {
     data && data.widgets ? data.widgets : {}
   );
 
-  useEffect(() => {
-    WebFont.load({
-      google: {
-        families: Object.keys(widgets)
-          .filter((widgetKey) => widgets[widgetKey].type === 'text')
-          .map((widgetKey) => widgets[widgetKey].fontFamily.family),
-      },
-    });
+  useLayoutEffect(() => {
+    FontPicker = require('font-picker-react');
+    const WebFont = require('webfontloader');
+    const familiesToLoad = Object.keys(widgets)
+      .filter((widgetKey) => widgets[widgetKey].type === 'text')
+      .map((widgetKey) => widgets[widgetKey].fontFamily.family);
+
+    if (familiesToLoad.length) {
+      WebFont.load({
+        google: {
+          families: familiesToLoad,
+        },
+      });
+    }
   }, []);
 
   return (
@@ -236,6 +239,7 @@ const EditOverlayPage = ({ data }) => {
                     const widget = widgets[widgetKey];
                     return (
                       <div
+                        key={`widget-${widgetKey}`}
                         style={{
                           border: '1px solid gray',
                           borderRadius: '4px',
@@ -246,7 +250,10 @@ const EditOverlayPage = ({ data }) => {
                         }}
                       >
                         {Object.keys(widget).map((attribute) => (
-                          <span style={{ display: 'block' }}>
+                          <span
+                            key={`widgetAttribute-${attribute}-${widgetKey}`}
+                            style={{ display: 'block' }}
+                          >
                             <strong>{attribute}:</strong>{' '}
                             {widget[attribute].family
                               ? widget[attribute].family
