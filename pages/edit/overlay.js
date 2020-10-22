@@ -1,4 +1,5 @@
 import { useLayoutEffect, useState } from 'react';
+import { Listbox } from '@amb-codes-crafts/a11y-components';
 import {
   createOverlayWidget,
   getOverlayData,
@@ -34,6 +35,24 @@ const typesToAttributes = {
 const AddWidgetModal = ({ onClose, onAdd }) => {
   const [widgetType, setWidgetType] = useState('');
   const [attributes, setAttributes] = useState({});
+  const [fontFamilies, setFontFamilies] = useState([]);
+
+  useLayoutEffect(() => {
+    if (widgetType === 'text') {
+      fetch(
+        `https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=${process.env.NEXT_PUBLIC_GOOGLE_WEB_FONTS_DEVELOPER_API_KEY}`
+      ).then((res) => {
+        res.json().then((data) => {
+          const families = data.items
+            .slice(0, 100)
+            .map((font) => font.family)
+            .sort()
+            .map((family, index) => ({ id: index, label: family }));
+          setFontFamilies(families);
+        });
+      });
+    }
+  }, [widgetType]);
 
   return (
     <Modal
@@ -69,15 +88,14 @@ const AddWidgetModal = ({ onClose, onAdd }) => {
           {typesToAttributes[widgetType].map(({ id, label, type }) => {
             if (id === 'fontFamily') {
               return (
-                <FontPicker
-                  key={`widgetInput-${id}`}
-                  apiKey={
-                    process.env.NEXT_PUBLIC_GOOGLE_WEB_FONTS_DEVELOPER_API_KEY
-                  }
-                  onChange={(value) => {
+                <Listbox
+                  label="Font family"
+                  options={fontFamilies}
+                  onChange={(nextOptionId) => {
+                    const selectedFontFamily = fontFamilies[nextOptionId].label;
                     setAttributes({
                       ...attributes,
-                      [id]: value,
+                      [id]: selectedFontFamily,
                       type: widgetType,
                     });
                   }}
@@ -108,8 +126,6 @@ const AddWidgetModal = ({ onClose, onAdd }) => {
   );
 };
 
-let FontPicker;
-
 const EditOverlayPage = ({ data }) => {
   const [showAddWidgetModal, setShowAddWidgetModal] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -120,11 +136,13 @@ const EditOverlayPage = ({ data }) => {
   );
 
   useLayoutEffect(() => {
-    FontPicker = require('font-picker-react');
     const WebFont = require('webfontloader');
     const familiesToLoad = Object.keys(widgets)
       .filter((widgetKey) => widgets[widgetKey].type === 'text')
-      .map((widgetKey) => widgets[widgetKey].fontFamily.family);
+      .map((widgetKey) => {
+        console.log(widgets[widgetKey].fontFamily);
+        return widgets[widgetKey].fontFamily;
+      });
 
     if (familiesToLoad.length) {
       WebFont.load({
@@ -133,7 +151,7 @@ const EditOverlayPage = ({ data }) => {
         },
       });
     }
-  }, []);
+  }, [widgets]);
 
   return (
     <Layout title="Edit Overlay">
@@ -187,7 +205,7 @@ const EditOverlayPage = ({ data }) => {
                     position: 'absolute',
                     top: `${widget.yPosition}px`,
                     left: `${widget.xPosition}px`,
-                    fontFamily: widget.fontFamily.family,
+                    fontFamily: widget.fontFamily,
                     fontSize: `${widget.fontSize}px`,
                   }}
                 >
