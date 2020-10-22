@@ -15,6 +15,13 @@ const typesToAttributes = {
     { id: 'yPosition', label: 'Y Position', type: 'number' },
     { id: 'color', label: 'Color (Hex)', type: 'text' },
   ],
+  image: [
+    { id: 'width', label: 'Width', type: 'number' },
+    { id: 'height', label: 'Height', type: 'number' },
+    { id: 'xPosition', label: 'X Position', type: 'number' },
+    { id: 'yPosition', label: 'Y Position', type: 'number' },
+    { id: 'url', label: 'URL', type: 'text' },
+  ],
 };
 
 const AddWidgetModal = ({ onClose, onAdd }) => {
@@ -46,6 +53,7 @@ const AddWidgetModal = ({ onClose, onAdd }) => {
       >
         <option value="">Choose a type</option>
         <option value="color">Color Block</option>
+        <option value="image">Image</option>
       </select>
 
       {widgetType && (
@@ -93,11 +101,12 @@ const EditOverlayPage = ({ data }) => {
             border: '1px solid black',
           }}
         >
-          {Object.keys(widgets).map((widgetKey) => {
+          {Object.keys(widgets).map((widgetKey, index) => {
             const widget = widgets[widgetKey];
             if (widget.type === 'color') {
               return (
                 <div
+                  key={`widget-${index}`}
                   style={{
                     width: `${widget.width}px`,
                     height: `${widget.height}px`,
@@ -107,6 +116,20 @@ const EditOverlayPage = ({ data }) => {
                     left: `${widget.xPosition}px`,
                   }}
                 ></div>
+              );
+            } else if (widget.type === 'image') {
+              return (
+                <img
+                  key={`widget-${index}`}
+                  src={widget.url}
+                  style={{
+                    width: `${widget.width}px`,
+                    height: `${widget.height}px`,
+                    position: 'absolute',
+                    top: `${widget.yPosition}px`,
+                    left: `${widget.xPosition}px`,
+                  }}
+                />
               );
             }
           })}
