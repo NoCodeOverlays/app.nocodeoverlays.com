@@ -80,7 +80,6 @@ const AddWidgetModal = ({ onClose, onAdd }) => {
                     process.env.NEXT_PUBLIC_GOOGLE_WEB_FONTS_DEVELOPER_API_KEY
                   }
                   onChange={(value) => {
-                    console.log(value);
                     setAttributes({
                       ...attributes,
                       [id]: value,
@@ -130,16 +129,6 @@ const EditOverlayPage = ({ data }) => {
           .filter((widgetKey) => widgets[widgetKey].type === 'text')
           .map((widgetKey) => widgets[widgetKey].fontFamily.family),
       },
-      loading: () => {
-        console.log('Fonts are being loaded...');
-      },
-      active: () => {
-        console.log('Fonts have been rendered');
-      },
-      fontloading: (familyName, fvd) => {
-        console.log(familyName);
-        console.log(fvd);
-      },
     });
   }, []);
 
@@ -186,7 +175,6 @@ const EditOverlayPage = ({ data }) => {
                 />
               );
             } else if (widget.type === 'text') {
-              console.log(widget.fontFamily.family);
               return (
                 <span
                   key={`widget-${index}`}
