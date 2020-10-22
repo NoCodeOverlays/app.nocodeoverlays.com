@@ -1,8 +1,9 @@
 import { useState, useLayoutEffect } from 'react';
-import { Listbox } from '@amb-codes-crafts/a11y-components';
-import { Button, Input, Modal } from '../';
+import { Button, Input, Listbox } from '@amb-codes-crafts/a11y-components';
+import { Modal } from '../';
 
 const widgetTypeOptions = [
+  { id: '', label: 'Choose a type' },
   { id: 'color', label: 'Color Block' },
   { id: 'image', label: 'Image' },
   { id: 'text', label: 'Text Block' },
@@ -53,13 +54,20 @@ const AddWidgetModal = ({ onClose, onAdd }) => {
     }
   }, [widgetType]);
 
+  let canAddWidget = false;
+  if (widgetType) {
+    const numberOfAttributesGiven = Object.keys(attributes).length - 1;
+    const numberOfAttributesNeeded = typesToAttributes[widgetType].length;
+    canAddWidget = numberOfAttributesGiven === numberOfAttributesNeeded;
+  }
+
   return (
     <Modal
       title="Add a widget"
       onClose={onClose}
       buttons={[
         <Button
-          disabled={!widgetType}
+          disabled={!canAddWidget}
           onClick={() => {
             onAdd(attributes);
           }}
@@ -73,7 +81,6 @@ const AddWidgetModal = ({ onClose, onAdd }) => {
         options={widgetTypeOptions}
         value={widgetType}
         onChange={(newWidgetType) => {
-          console.log(newWidgetType);
           setWidgetType(newWidgetType);
         }}
       />
@@ -105,7 +112,8 @@ const AddWidgetModal = ({ onClose, onAdd }) => {
                 label={label}
                 type={type}
                 value={attributes[id] || ''}
-                onChange={(value) => {
+                onChange={(e) => {
+                  const value = e.target.value;
                   setAttributes({
                     ...attributes,
                     [id]: value,
