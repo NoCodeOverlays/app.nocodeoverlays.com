@@ -7,15 +7,15 @@
     "test": "jest"
   },
   "dependencies": {
-    "@amb-codes-crafts/a11y-components": "^2.0.3",
+    "@amb-codes-crafts/a11y-components": "^2.0.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.11",
     "classnames": "^2.2.6",
     "firebase": "^7.24.0",
     "next": "^9.5.5",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "sass": "^1.27.0"
   },
   "devDependencies": {
@@ -26,6 +26,6 @@
     "enzyme-adapter-react-16": "^1.15.5",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.6.0",
-    "react-test-renderer": "^17.0.0"
+    "react-test-renderer": "^17.0.1"
   }
 }
