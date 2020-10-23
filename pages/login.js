@@ -1,15 +1,15 @@
-import { useState } from "react";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { signIn } from "../lib/api";
+import { useState } from 'react';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { signIn } from '../lib/api';
+import { Button, Input } from '@amb-codes-crafts/a11y-components';
 
-import { Button, Input } from "../components";
-import styles from "../stylesheets/Pages.module.scss";
+import styles from '../stylesheets/Pages.module.scss';
 
 const LoginPage = () => {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <div className={styles.Login}>
@@ -25,8 +25,8 @@ const LoginPage = () => {
           type="email"
           label="Email"
           value={email}
-          onChange={(value) => {
-            setEmail(value);
+          onChange={(e) => {
+            setEmail(e.target.value);
           }}
         />
         <Input
@@ -34,8 +34,8 @@ const LoginPage = () => {
           type="password"
           label="Password"
           value={password}
-          onChange={(value) => {
-            setPassword(value);
+          onChange={(e) => {
+            setPassword(e.target.value);
           }}
         />
         <Button
@@ -43,7 +43,7 @@ const LoginPage = () => {
             signIn(email, password)
               .then((res) => {
                 if (res.user) {
-                  router.push("/");
+                  router.push('/');
                 }
               })
               .catch((err) => {

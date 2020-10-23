@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import Head from "next/head";
-import { useRouter } from "next/router";
+import { useState, useEffect } from 'react';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { Button } from '@amb-codes-crafts/a11y-components';
 
-import { getUser, signOut } from "../../lib/api";
-import { Button } from "../";
-import styles from "./Layout.module.scss";
+import { getUser, signOut } from '../../lib/api';
+import styles from './Layout.module.scss';
 
 const Layout = ({ title, children }) => {
   const router = useRouter();
@@ -23,14 +23,14 @@ const Layout = ({ title, children }) => {
   }
 
   if (!user) {
-    router.push("/login");
+    router.push('/login');
     return null;
   }
 
   return (
     <div className={styles.Layout}>
       <Head>
-        <title>{"No Code Overlays" || title}</title>
+        <title>{'No Code Overlays' || title}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <header>

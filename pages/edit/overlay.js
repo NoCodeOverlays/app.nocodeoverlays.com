@@ -1,17 +1,11 @@
 import { useLayoutEffect, useState } from 'react';
+import { Button, Input } from '@amb-codes-crafts/a11y-components';
 import {
   createOverlayWidget,
   getOverlayData,
   updateOverlayData,
 } from '../../lib/api';
-import {
-  AddWidgetModal,
-  Button,
-  Icon,
-  Input,
-  Layout,
-  Sidebar,
-} from '../../components';
+import { AddWidgetModal, Icon, Layout, Sidebar } from '../../components';
 import styles from '../../stylesheets/Pages.module.scss';
 
 const EditOverlayPage = ({ data }) => {
