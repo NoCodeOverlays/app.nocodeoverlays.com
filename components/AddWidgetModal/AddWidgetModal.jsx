@@ -41,14 +41,14 @@ const AddWidgetModal = ({ onClose, onAdd }) => {
   useLayoutEffect(() => {
     if (widgetType === 'text') {
       fetch(
-        `https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=${process.env.NEXT_PUBLIC_GOOGLE_WEB_FONTS_DEVELOPER_API_KEY}`
+        `https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=${process.env.NEXT_PUBLIC_GOOGLE_WEB_FONTS_DEVELOPER_API_KEY}`,
       ).then((res) => {
         res.json().then((data) => {
-          const sortedFamilies = data.items
+          const top100 = data.items
             .slice(0, 100)
-            .map((font, index) => ({ id: index, label: font.family }))
-            .sort((a, b) => (a.label <= b.label ? -1 : 1));
-          setFontFamilies(sortedFamilies);
+            .sort((a, b) => (a.family <= b.family ? -1 : 1))
+            .map((font, index) => ({ id: index, label: font.family }));
+          setFontFamilies(top100);
         });
       });
     }
@@ -94,10 +94,10 @@ const AddWidgetModal = ({ onClose, onAdd }) => {
                   label="Font family"
                   options={fontFamilies}
                   onChange={(nextOptionId) => {
-                    const selectedFontFamily = fontFamilies[nextOptionId].label;
+                    const selectedFontFamily = fontFamilies[nextOptionId];
                     setAttributes({
                       ...attributes,
-                      [id]: selectedFontFamily,
+                      [id]: selectedFontFamily.label,
                       type: widgetType,
                     });
                   }}
