@@ -1,10 +1,12 @@
 import { useLayoutEffect, useState } from 'react';
 import { Button, Input } from '@amb-codes-crafts/a11y-components';
 import { firebaseAPI } from '../../lib/firebase';
+import { useOverlay } from '../../context/overlay';
 import { AddWidgetModal, Icon, Layout, Sidebar } from '../../components';
 import styles from '../../stylesheets/Pages.module.scss';
 
-const EditOverlayPage = ({ data }) => {
+const EditOverlayPage = () => {
+  const { data, loading } = useOverlay();
   const [showAddWidgetModal, setShowAddWidgetModal] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [width, setWidth] = useState(data && data.width ? data.width : '');
@@ -14,11 +16,14 @@ const EditOverlayPage = ({ data }) => {
   );
 
   useLayoutEffect(() => {
+    if (!data) {
+      return;
+    }
+
     const WebFont = require('webfontloader');
     const familiesToLoad = Object.keys(widgets)
       .filter((widgetKey) => widgets[widgetKey].type === 'text')
       .map((widgetKey) => widgets[widgetKey].fontFamily);
-
     if (familiesToLoad.length) {
       WebFont.load({
         google: {
@@ -26,7 +31,11 @@ const EditOverlayPage = ({ data }) => {
         },
       });
     }
-  }, [widgets]);
+  }, [data]);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <Layout title="Edit Overlay">
@@ -219,14 +228,6 @@ const EditOverlayPage = ({ data }) => {
       </div>
     </Layout>
   );
-};
-
-EditOverlayPage.getInitialProps = async () => {
-  const overlayData = await firebaseAPI('getOverlayData');
-
-  return {
-    data: overlayData,
-  };
 };
 
 export default EditOverlayPage;
