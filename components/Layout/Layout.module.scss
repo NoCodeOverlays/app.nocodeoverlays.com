@@ -19,4 +19,14 @@
   main {
     padding: 24px;
   }
+
+  &--fullscreen {
+    header {
+      display: none;
+    }
+
+    main {
+      padding: 0;
+    }
+  }
 }

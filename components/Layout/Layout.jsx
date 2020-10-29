@@ -2,13 +2,19 @@ import { useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Button } from '@amb-codes-crafts/a11y-components';
+import classNames from 'classnames/bind';
 import { useAuth } from '../../context/auth';
 import { firebaseAPI } from '../../lib/firebase';
 import styles from './Layout.module.scss';
 
-const Layout = ({ title, children }) => {
+const Layout = ({ title, children, fullscreen }) => {
   const router = useRouter();
   const { user, loading } = useAuth();
+
+  const cx = classNames.bind(styles);
+  const className = cx('Layout', {
+    'Layout--fullscreen': !!fullscreen,
+  });
 
   useEffect(() => {
     if (loading) {
@@ -30,7 +36,7 @@ const Layout = ({ title, children }) => {
   }
 
   return (
-    <div className={styles.Layout}>
+    <div className={className}>
       <Head>
         <title>{'No Code Overlays' || title}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
