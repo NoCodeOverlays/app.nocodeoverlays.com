@@ -39,6 +39,7 @@ const EditOverlayPage = ({ fontFamilies }) => {
             width: `${width}px`,
             height: `${height}px`,
             border: '1px solid black',
+            overflow: 'hidden',
           }}
         >
           {Object.keys(widgets).map((widgetKey, index) => {
@@ -76,8 +77,7 @@ const EditOverlayPage = ({ fontFamilies }) => {
                 <span
                   key={`widget-${index}`}
                   style={{
-                    width: `${widget.width}px`,
-                    height: `${widget.height}px`,
+                    width: 'fit-content',
                     position: 'absolute',
                     top: `${widget.yPosition}px`,
                     left: `${widget.xPosition}px`,
