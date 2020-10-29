@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Button } from '@amb-codes-crafts/a11y-components';
-import { useAuth } from '../../auth';
+import { useAuth } from '../../context/auth';
 import { firebaseAPI } from '../../lib/firebase';
 import styles from './Layout.module.scss';
 
@@ -26,6 +26,7 @@ const Layout = ({ title, children }) => {
 
   if (!user) {
     router.replace('/login');
+    return <h1>Redirecting...</h1>;
   }
 
   return (
@@ -40,9 +41,7 @@ const Layout = ({ title, children }) => {
           <span>Hey, {user.email}!</span>
           <Button
             onClick={() => {
-              firebaseAPI('signOut').then(() => {
-                setUser();
-              });
+              firebaseAPI('signOut');
             }}
           >
             Sign Out
