@@ -6,7 +6,7 @@ import { AddWidgetModal, Icon, Layout, Sidebar } from '../../components';
 import styles from '../../stylesheets/Pages.module.scss';
 
 const EditOverlayPage = ({ fontFamilies }) => {
-  const { data, loading } = useOverlay();
+  const { data = {}, loading } = useOverlay();
   const [showAddWidgetModal, setShowAddWidgetModal] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [width, setWidth] = useState(data.width || '');
@@ -105,14 +105,18 @@ const EditOverlayPage = ({ fontFamilies }) => {
                 type="number"
                 label="Width (px)"
                 value={width}
-                onChange={setWidth}
+                onChange={(e) => {
+                  setWidth(e.target.value);
+                }}
               />
               <Input
                 id="height"
                 type="number"
                 label="Height (px)"
                 value={height}
-                onChange={setHeight}
+                onChange={(e) => {
+                  setHeight(e.target.value);
+                }}
               />
             </div>
           </div>
