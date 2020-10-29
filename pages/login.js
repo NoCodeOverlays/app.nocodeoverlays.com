@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { signIn } from '../lib/api';
+import { firebaseAPI } from '../lib/firebase';
 import { Button, Input } from '@amb-codes-crafts/a11y-components';
 
 import styles from '../stylesheets/Pages.module.scss';
@@ -40,7 +40,7 @@ const LoginPage = () => {
         />
         <Button
           onClick={() => {
-            signIn(email, password)
+            firebaseAPI('signIn', email, password)
               .then((res) => {
                 if (res.user) {
                   router.push('/');

@@ -1,10 +1,6 @@
 import { useLayoutEffect, useState } from 'react';
 import { Button, Input } from '@amb-codes-crafts/a11y-components';
-import {
-  createOverlayWidget,
-  getOverlayData,
-  updateOverlayData,
-} from '../../lib/api';
+import { firebaseAPI } from '../../lib/firebase';
 import { AddWidgetModal, Icon, Layout, Sidebar } from '../../components';
 import styles from '../../stylesheets/Pages.module.scss';
 
@@ -14,17 +10,14 @@ const EditOverlayPage = ({ data }) => {
   const [width, setWidth] = useState(data && data.width ? data.width : '');
   const [height, setHeight] = useState(data && data.height ? data.height : '');
   const [widgets, setWidgets] = useState(
-    data && data.widgets ? data.widgets : {}
+    data && data.widgets ? data.widgets : {},
   );
 
   useLayoutEffect(() => {
     const WebFont = require('webfontloader');
     const familiesToLoad = Object.keys(widgets)
       .filter((widgetKey) => widgets[widgetKey].type === 'text')
-      .map((widgetKey) => {
-        console.log(widgets[widgetKey].fontFamily);
-        return widgets[widgetKey].fontFamily;
-      });
+      .map((widgetKey) => widgets[widgetKey].fontFamily);
 
     if (familiesToLoad.length) {
       WebFont.load({
@@ -164,12 +157,14 @@ const EditOverlayPage = ({ data }) => {
                           onClick={() => {
                             delete widgets[widgetKey];
                             setIsSaving(true);
-                            updateOverlayData({ width, height, widgets }).then(
-                              () => {
-                                setWidgets({ ...widgets });
-                                setIsSaving(false);
-                              }
-                            );
+                            firebaseAPI('updateOverlayData', {
+                              width,
+                              height,
+                              widgets,
+                            }).then(() => {
+                              setWidgets({ ...widgets });
+                              setIsSaving(false);
+                            });
                           }}
                           style={{
                             position: 'absolute',
@@ -194,7 +189,7 @@ const EditOverlayPage = ({ data }) => {
             disabled={isSaving}
             onClick={() => {
               setIsSaving(true);
-              updateOverlayData({ width, height }).then(() => {
+              firebaseAPI('updateOverlayData', { width, height }).then(() => {
                 setIsSaving(false);
               });
             }}
@@ -208,14 +203,16 @@ const EditOverlayPage = ({ data }) => {
               setShowAddWidgetModal(false);
             }}
             onAdd={(attributes) => {
-              createOverlayWidget(attributes).then((newWidget) => {
-                const newWidgetKey = Object.keys(newWidget)[0];
-                setWidgets({
-                  ...widgets,
-                  [newWidgetKey]: newWidget[newWidgetKey],
-                });
-                setShowAddWidgetModal(false);
-              });
+              firebaseAPI('createOverlayWidget', attributes).then(
+                (newWidget) => {
+                  const newWidgetKey = Object.keys(newWidget)[0];
+                  setWidgets({
+                    ...widgets,
+                    [newWidgetKey]: newWidget[newWidgetKey],
+                  });
+                  setShowAddWidgetModal(false);
+                },
+              );
             }}
           />
         )}
@@ -225,7 +222,7 @@ const EditOverlayPage = ({ data }) => {
 };
 
 EditOverlayPage.getInitialProps = async () => {
-  const overlayData = await getOverlayData();
+  const overlayData = await firebaseAPI('getOverlayData');
 
   return {
     data: overlayData,

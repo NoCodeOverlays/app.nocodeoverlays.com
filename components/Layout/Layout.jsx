@@ -1,30 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Button } from '@amb-codes-crafts/a11y-components';
-
-import { getUser, signOut } from '../../lib/api';
+import { useAuth } from '../../auth';
+import { firebaseAPI } from '../../lib/firebase';
 import styles from './Layout.module.scss';
 
 const Layout = ({ title, children }) => {
   const router = useRouter();
-  const [user, setUser] = useState();
-  const [isLoading, setIsLoading] = useState(true);
+  const { user, loading } = useAuth();
 
   useEffect(() => {
-    getUser().then((res) => {
-      setUser(res);
-      setIsLoading(false);
-    });
-  }, []);
+    if (loading) {
+      return;
+    }
 
-  if (isLoading) {
+    if (!user) {
+      router.replace('/login');
+    }
+  }, [loading, user]);
+
+  if (loading) {
     return <h1>Loading...</h1>;
   }
 
   if (!user) {
-    router.push('/login');
-    return null;
+    router.replace('/login');
   }
 
   return (
@@ -39,7 +40,7 @@ const Layout = ({ title, children }) => {
           <span>Hey, {user.email}!</span>
           <Button
             onClick={() => {
-              signOut().then(() => {
+              firebaseAPI('signOut').then(() => {
                 setUser();
               });
             }}
