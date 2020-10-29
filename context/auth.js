@@ -5,11 +5,11 @@ const AuthContext = createContext({ user: null, loading: true });
 
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
 
   useEffect(() => {
     return firebaseAPI('onAuthStateChanged', (res) => {
-      setUser(res || null);
+      setUser(res);
       setLoading(false);
     });
   }, []);
