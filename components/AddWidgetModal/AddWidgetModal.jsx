@@ -33,26 +33,9 @@ const typesToAttributes = {
   ],
 };
 
-const AddWidgetModal = ({ onClose, onAdd }) => {
+const AddWidgetModal = ({ fontFamilies, onClose, onAdd }) => {
   const [widgetType, setWidgetType] = useState('');
   const [attributes, setAttributes] = useState({});
-  const [fontFamilies, setFontFamilies] = useState([]);
-
-  useLayoutEffect(() => {
-    if (widgetType === 'text') {
-      fetch(
-        `https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=${process.env.NEXT_PUBLIC_GOOGLE_WEB_FONTS_DEVELOPER_API_KEY}`,
-      ).then((res) => {
-        res.json().then((data) => {
-          const top100 = data.items
-            .slice(0, 100)
-            .sort((a, b) => (a.family <= b.family ? -1 : 1))
-            .map((font, index) => ({ id: index, label: font.family }));
-          setFontFamilies(top100);
-        });
-      });
-    }
-  }, [widgetType]);
 
   let canAddWidget = false;
   if (widgetType) {

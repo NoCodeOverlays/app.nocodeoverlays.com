@@ -1,31 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { Button, Input } from '@amb-codes-crafts/a11y-components';
 import { firebaseAPI } from '../../lib/firebase';
 import { useOverlay } from '../../context/overlay';
 import { AddWidgetModal, Icon, Layout, Sidebar } from '../../components';
 import styles from '../../stylesheets/Pages.module.scss';
 
-const EditOverlayPage = () => {
+const EditOverlayPage = ({ fontFamilies }) => {
   const { data, loading } = useOverlay();
   const [showAddWidgetModal, setShowAddWidgetModal] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [width, setWidth] = useState('');
-  const [height, setHeight] = useState('');
-  const [widgets, setWidgets] = useState({});
+  const [width, setWidth] = useState(data.width || '');
+  const [height, setHeight] = useState(data.height || '');
+  const [widgets, setWidgets] = useState(data.widgets || {});
 
-  useEffect(() => {
-    if (!data) {
-      return;
-    }
-
-    setWidth(data.width);
-    setHeight(data.height);
-    setWidgets(data.widgets);
-
+  useLayoutEffect(() => {
     const WebFont = require('webfontloader');
-    const familiesToLoad = Object.keys(widgets)
-      .filter((widgetKey) => widgets[widgetKey].type === 'text')
-      .map((widgetKey) => widgets[widgetKey].fontFamily);
+    const familiesToLoad = fontFamilies.map((fontFamily) => fontFamily.label);
     if (familiesToLoad.length) {
       WebFont.load({
         google: {
@@ -33,7 +23,7 @@ const EditOverlayPage = () => {
         },
       });
     }
-  }, [data]);
+  }, []);
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -210,6 +200,7 @@ const EditOverlayPage = () => {
         </Sidebar>
         {showAddWidgetModal && (
           <AddWidgetModal
+            fontFamilies={fontFamilies}
             onClose={() => {
               setShowAddWidgetModal(false);
             }}
@@ -230,6 +221,23 @@ const EditOverlayPage = () => {
       </div>
     </Layout>
   );
+};
+
+EditOverlayPage.getInitialProps = async () => {
+  const fontFamilies = await fetch(
+    `https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=${process.env.NEXT_PUBLIC_GOOGLE_WEB_FONTS_DEVELOPER_API_KEY}`,
+  )
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      return data.items
+        .slice(0, 100)
+        .sort((a, b) => (a.family <= b.family ? -1 : 1))
+        .map((font, index) => ({ id: index, label: font.family }));
+    });
+
+  return { fontFamilies };
 };
 
 export default EditOverlayPage;
