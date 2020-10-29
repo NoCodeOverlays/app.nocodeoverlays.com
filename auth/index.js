@@ -8,9 +8,9 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    return firebaseAPI('onAuthStateChanged', (user) => {
+    return firebaseAPI('onAuthStateChanged', (res) => {
+      setUser(res || null);
       setLoading(false);
-      setUser(user || null);
     });
   }, []);
 
