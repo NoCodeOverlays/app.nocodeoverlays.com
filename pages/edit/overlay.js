@@ -9,16 +9,18 @@ const EditOverlayPage = () => {
   const { data, loading } = useOverlay();
   const [showAddWidgetModal, setShowAddWidgetModal] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [width, setWidth] = useState(data && data.width ? data.width : '');
-  const [height, setHeight] = useState(data && data.height ? data.height : '');
-  const [widgets, setWidgets] = useState(
-    data && data.widgets ? data.widgets : {},
-  );
+  const [width, setWidth] = useState('');
+  const [height, setHeight] = useState('');
+  const [widgets, setWidgets] = useState({});
 
   useLayoutEffect(() => {
     if (!data) {
       return;
     }
+
+    setWidth(data.width);
+    setHeight(data.height);
+    setWidgets(data.widgets);
 
     const WebFont = require('webfontloader');
     const familiesToLoad = Object.keys(widgets)
