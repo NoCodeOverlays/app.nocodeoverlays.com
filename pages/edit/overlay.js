@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Input } from '@amb-codes-crafts/a11y-components';
 import { firebaseAPI } from '../../lib/firebase';
 import { useOverlay } from '../../context/overlay';
@@ -13,7 +13,7 @@ const EditOverlayPage = () => {
   const [height, setHeight] = useState('');
   const [widgets, setWidgets] = useState({});
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!data) {
       return;
     }
