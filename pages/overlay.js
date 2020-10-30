@@ -1,9 +1,11 @@
 import { useLayoutEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Layout } from '../components';
 import { useOverlay } from '../context/overlay';
 
 const OverlayPage = ({ fontFamilies }) => {
   const { data, loading } = useOverlay();
+  const router = useRouter();
 
   useLayoutEffect(() => {
     const WebFont = require('webfontloader');
@@ -19,6 +21,16 @@ const OverlayPage = ({ fontFamilies }) => {
 
   if (loading) {
     return <h1>Loading...</h1>;
+  }
+
+  if (!loading && !data) {
+    router.push({
+      pathname: 'login',
+      query: {
+        returnTo: router.pathname,
+      },
+    });
+    return null;
   }
 
   const { width, height, widgets } = data;

@@ -20,10 +20,6 @@ const Layout = ({ title, children, fullscreen }) => {
     if (loading) {
       return;
     }
-
-    if (!user) {
-      router.replace('/login');
-    }
   }, [loading, user]);
 
   if (loading) {
@@ -31,7 +27,15 @@ const Layout = ({ title, children, fullscreen }) => {
   }
 
   if (!user) {
-    router.replace('/login');
+    router.replace({
+      pathname: '/login',
+      query:
+        router.pathname === '/'
+          ? undefined
+          : {
+              returnTo: router.pathname,
+            },
+    });
     return <h1>Redirecting...</h1>;
   }
 
@@ -48,6 +52,7 @@ const Layout = ({ title, children, fullscreen }) => {
           <Button
             onClick={() => {
               firebaseAPI('signOut');
+              router.replace('/login');
             }}
           >
             Sign Out
