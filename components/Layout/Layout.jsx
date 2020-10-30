@@ -39,6 +39,19 @@ const Layout = ({ title, children, fullscreen }) => {
     return <h1>Loading...</h1>;
   }
 
+  if (!user) {
+    router.replace({
+      pathname: '/login',
+      query:
+        router.pathname === '/'
+          ? undefined
+          : {
+              returnTo: router.pathname,
+            },
+    });
+    return <h1>Redirecting...</h1>;
+  }
+
   return (
     <div className={className}>
       <Head>
