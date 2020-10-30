@@ -17,18 +17,13 @@ const Layout = ({ title, children, fullscreen }) => {
   });
 
   useEffect(() => {
-    if (userLoading) {
-      return;
-    }
-
-    if (!user) {
+    if (!userLoading && !user) {
       router.replace({
         pathname: '/login',
         query: router.pathname === '/' && {
           returnTo: router.pathname,
         },
       });
-      return <h1>Redirecting...</h1>;
     }
   }, [userLoading, user]);
 

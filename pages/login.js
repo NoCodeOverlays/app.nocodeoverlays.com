@@ -14,10 +14,10 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    if (!user) {
+    if (!userLoading && user) {
       router.replace(router.query.returnTo || '/');
     }
-  }, [user]);
+  }, [userLoading, user]);
 
   if (userLoading) {
     return <h1>Loading...</h1>;

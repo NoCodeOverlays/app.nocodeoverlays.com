@@ -32,7 +32,7 @@ const OverlayPage = ({ fontFamilies }) => {
         },
       });
     }
-  }, [userLoading]);
+  }, [userLoading, user]);
 
   if (!userLoading && !user) {
     return <h1>Redirecting</h1>;

@@ -9,10 +9,10 @@ const ProfilePage = () => {
   const { user, userLoading } = useAuth();
 
   useEffect(() => {
-    if (!user) {
+    if (!userLoading && !user) {
       router.replace('/login');
     }
-  }, [user]);
+  }, [userLoading, user]);
 
   if (userLoading) {
     return <h1>Loading...</h1>;
