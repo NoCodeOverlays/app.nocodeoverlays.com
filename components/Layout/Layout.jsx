@@ -9,7 +9,7 @@ import styles from './Layout.module.scss';
 
 const Layout = ({ title, children, fullscreen }) => {
   const router = useRouter();
-  const { user, loading } = useAuth();
+  const { user, userLoading } = useAuth();
 
   const cx = classNames.bind(styles);
   const className = cx('Layout', {
@@ -17,7 +17,7 @@ const Layout = ({ title, children, fullscreen }) => {
   });
 
   useEffect(() => {
-    if (loading) {
+    if (userLoading) {
       return;
     }
 
@@ -33,9 +33,9 @@ const Layout = ({ title, children, fullscreen }) => {
       });
       return <h1>Redirecting...</h1>;
     }
-  }, [loading, user]);
+  }, [userLoading, user]);
 
-  if (loading) {
+  if (userLoading) {
     return <h1>Loading...</h1>;
   }
 

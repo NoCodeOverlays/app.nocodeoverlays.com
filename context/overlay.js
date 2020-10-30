@@ -2,29 +2,23 @@ import { createContext, useState, useContext, useEffect } from 'react';
 import { useAuth } from './auth';
 import { firebaseAPI } from '../lib/firebase';
 
-const OverlayContext = createContext({ data: null, loading: true });
+const OverlayContext = createContext({ data: null, dataLoading: null });
 
 export const OverlayProvider = ({ children }) => {
-  const { user, loading } = useAuth();
-  const [dataLoading, setDataLoading] = useState(true);
+  const { user, userLoading } = useAuth();
+  const [dataLoading, setDataLoading] = useState();
   const [data, setData] = useState();
 
   useEffect(() => {
-    if (!user && loading) {
-      return;
-    } else if (!user && !loading) {
-      setDataLoading(false);
-      return;
-    }
-
-    firebaseAPI('getOverlayData').then((res) => {
+    setDataLoading(true);
+    return firebaseAPI('getOverlayData').then((res) => {
       setData(res);
       setDataLoading(false);
     });
-  }, [user, loading]);
+  }, [user, userLoading]);
 
   return (
-    <OverlayContext.Provider value={{ data, loading: dataLoading }}>
+    <OverlayContext.Provider value={{ data, dataLoading }}>
       {children}
     </OverlayContext.Provider>
   );

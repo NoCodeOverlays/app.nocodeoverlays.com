@@ -1,21 +1,22 @@
 import { createContext, useState, useEffect, useContext } from 'react';
 import { firebaseAPI } from '../lib/firebase';
 
-const AuthContext = createContext({ user: null, loading: true });
+const AuthContext = createContext({ user: null, userLoading: null });
 
 export const AuthProvider = ({ children }) => {
-  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState();
+  const [userLoading, setUserLoading] = useState();
 
   useEffect(() => {
+    setUserLoading(true);
     return firebaseAPI('onAuthStateChanged', (res) => {
       setUser(res);
-      setLoading(false);
+      setUserLoading(false);
     });
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading }}>
+    <AuthContext.Provider value={{ user, userLoading }}>
       {children}
     </AuthContext.Provider>
   );

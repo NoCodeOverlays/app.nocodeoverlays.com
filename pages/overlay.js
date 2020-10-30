@@ -1,37 +1,52 @@
-import { useLayoutEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Overlay } from '../components';
+import { useAuth } from '../context/auth';
 import { useOverlay } from '../context/overlay';
 
 const OverlayPage = ({ fontFamilies }) => {
-  const { data, loading } = useOverlay();
+  const { user, userLoading } = useAuth();
+  const { data, dataLoading } = useOverlay();
+  const [fontsLoaded, setFontsLoaded] = useState(false);
   const router = useRouter();
 
   useLayoutEffect(() => {
-    const WebFont = require('webfontloader');
-    const familiesToLoad = fontFamilies.map((fontFamily) => fontFamily.label);
-    if (familiesToLoad.length) {
-      WebFont.load({
-        google: {
-          families: familiesToLoad,
+    if (!fontsLoaded) {
+      const WebFont = require('webfontloader');
+      const familiesToLoad = fontFamilies.map((fontFamily) => fontFamily.label);
+      if (familiesToLoad.length) {
+        WebFont.load({
+          google: {
+            families: familiesToLoad,
+          },
+        });
+      }
+      setFontsLoaded(true);
+    }
+
+    if (!userLoading && !user) {
+      router.push({
+        pathname: 'login',
+        query: {
+          returnTo: router.pathname,
         },
       });
     }
-  }, []);
+  }, [userLoading]);
 
-  if (loading) {
+  if (!userLoading && !user) {
+    return <h1>Redirecting</h1>;
+  }
+
+  if (userLoading || dataLoading) {
     return <h1>Loading...</h1>;
   }
 
-  if (!loading && !data) {
-    router.push({
-      pathname: 'login',
-      query: {
-        returnTo: router.pathname,
-      },
-    });
-    return null;
-  }
+  console.log('overlay page');
+  console.log('  user loading?', userLoading);
+  console.log('  user?', user);
+  console.log('  dataLoading?', dataLoading);
+  console.log('  data?', data);
 
   const { width, height, widgets } = data;
 

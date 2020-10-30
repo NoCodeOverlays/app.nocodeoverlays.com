@@ -6,9 +6,9 @@ import { Layout } from '../components';
 
 const ProfilePage = () => {
   const router = useRouter();
-  const { user, loading } = useAuth();
+  const { user, userLoading } = useAuth();
 
-  if (loading) {
+  if (userLoading) {
     return <h1>Loading...</h1>;
   }
 

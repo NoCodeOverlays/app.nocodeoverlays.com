@@ -12,7 +12,7 @@ import {
 import styles from '../../stylesheets/Pages.module.scss';
 
 const EditOverlayPage = ({ fontFamilies }) => {
-  const { data = {}, loading } = useOverlay();
+  const { data = {}, dataLoading } = useOverlay();
   const [showAddWidgetModal, setShowAddWidgetModal] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [width, setWidth] = useState(data.width || '');
@@ -25,7 +25,7 @@ const EditOverlayPage = ({ fontFamilies }) => {
       setHeight(data.height);
       setWidgets(data.widgets);
     }
-  }, [data, loading]);
+  }, [data, dataLoading]);
 
   useLayoutEffect(() => {
     const WebFont = require('webfontloader');
@@ -39,7 +39,7 @@ const EditOverlayPage = ({ fontFamilies }) => {
     }
   }, []);
 
-  if (loading) {
+  if (dataLoading) {
     return <h1>Loading...</h1>;
   }
 

@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { firebaseAPI } from '../lib/firebase';
@@ -8,19 +8,17 @@ import styles from '../stylesheets/Pages.module.scss';
 import { useAuth } from '../context/auth';
 
 const LoginPage = () => {
-  const { user, loading } = useAuth();
   const router = useRouter();
+  const { user, userLoading } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  useLayoutEffect(() => {
-    if (user) {
-      router.replace('/');
-    }
-  }, [user, loading]);
-
-  if (loading) {
+  if (userLoading) {
     return <h1>Loading...</h1>;
+  }
+
+  if (user) {
+    router.replace(router.query.returnTo || '/');
   }
 
   return (
@@ -54,9 +52,7 @@ const LoginPage = () => {
           onClick={() => {
             firebaseAPI('signIn', email, password)
               .then((res) => {
-                if (res.user) {
-                  router.push(router.query.returnTo || '/');
-                }
+                // nothing to do here
               })
               .catch((err) => {
                 alert(err.message);
