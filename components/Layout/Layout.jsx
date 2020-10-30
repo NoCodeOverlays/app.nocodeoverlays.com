@@ -24,12 +24,9 @@ const Layout = ({ title, children, fullscreen }) => {
     if (!user) {
       router.replace({
         pathname: '/login',
-        query:
-          router.pathname === '/'
-            ? undefined
-            : {
-                returnTo: router.pathname,
-              },
+        query: router.pathname === '/' && {
+          returnTo: router.pathname,
+        },
       });
       return <h1>Redirecting...</h1>;
     }
@@ -40,15 +37,6 @@ const Layout = ({ title, children, fullscreen }) => {
   }
 
   if (!user) {
-    router.replace({
-      pathname: '/login',
-      query:
-        router.pathname === '/'
-          ? undefined
-          : {
-              returnTo: router.pathname,
-            },
-    });
     return <h1>Redirecting...</h1>;
   }
 

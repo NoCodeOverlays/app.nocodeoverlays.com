@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../context/auth';
 import { Button, Input } from '@amb-codes-crafts/a11y-components';
@@ -8,13 +8,18 @@ const ProfilePage = () => {
   const router = useRouter();
   const { user, userLoading } = useAuth();
 
+  useEffect(() => {
+    if (!user) {
+      router.replace('/login');
+    }
+  }, [user]);
+
   if (userLoading) {
     return <h1>Loading...</h1>;
   }
 
   if (!user) {
-    router.replace('/login');
-    return;
+    return <h1>Redirecting</h1>;
   }
 
   const [displayName, setDisplayName] = useState(user.displayName || '');

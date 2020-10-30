@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { firebaseAPI } from '../lib/firebase';
@@ -13,12 +13,18 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  useEffect(() => {
+    if (!user) {
+      router.replace(router.query.returnTo || '/');
+    }
+  }, [user]);
+
   if (userLoading) {
     return <h1>Loading...</h1>;
   }
 
   if (user) {
-    router.replace(router.query.returnTo || '/');
+    return <h1>Redirecting...</h1>;
   }
 
   return (
