@@ -10,4 +10,6 @@ export { Layout } from './Layout';
 
 export { Modal } from './Modal';
 
+export { Overlay } from './Overlay';
+
 export { Sidebar } from './Sidebar';
