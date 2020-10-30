@@ -20,7 +20,7 @@ const Layout = ({ title, children, fullscreen }) => {
     if (!userLoading && !user) {
       router.replace({
         pathname: '/login',
-        query: router.pathname === '/' && {
+        query: router.pathname !== '/' && {
           returnTo: router.pathname,
         },
       });

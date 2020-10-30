@@ -26,7 +26,7 @@ const ProfilePage = () => {
   const [email, setEmail] = useState(user.email || '');
 
   return (
-    <Layout title="Profile">
+    <Layout title="No-Code Overlays | Profile">
       <h2>Profile Page</h2>
       <p>Member since: {user.metadata.creationTime}</p>
       <br />

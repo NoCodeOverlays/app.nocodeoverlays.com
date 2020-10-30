@@ -44,7 +44,7 @@ const EditOverlayPage = ({ fontFamilies }) => {
   }
 
   return (
-    <Layout title="Edit Overlay">
+    <Layout title="No-Code Overlays | Edit Overlay">
       <div className={styles.EditOverlay}>
         <p>Your Preview</p>
         <Overlay width={width} height={height} widgets={widgets} />
