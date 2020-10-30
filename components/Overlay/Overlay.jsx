@@ -39,7 +39,6 @@ const Overlay = ({ width, height, widgets }) => (
           />
         );
       } else if (widget.type === 'text') {
-        console.log(widget);
         return (
           <span
             key={`widget-${index}`}
