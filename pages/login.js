@@ -1,15 +1,27 @@
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { firebaseAPI } from '../lib/firebase';
 import { Button, Input } from '@amb-codes-crafts/a11y-components';
 
 import styles from '../stylesheets/Pages.module.scss';
+import { useAuth } from '../context/auth';
 
 const LoginPage = () => {
+  const { user, loading } = useAuth();
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useLayoutEffect(() => {
+    if (user) {
+      router.replace('/');
+    }
+  }, [user, loading]);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <div className={styles.Login}>
@@ -43,7 +55,7 @@ const LoginPage = () => {
             firebaseAPI('signIn', email, password)
               .then((res) => {
                 if (res.user) {
-                  router.push('/');
+                  router.push(router.query.returnTo || '/');
                 }
               })
               .catch((err) => {
