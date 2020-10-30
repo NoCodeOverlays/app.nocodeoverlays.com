@@ -28,8 +28,13 @@ const typesToAttributes = {
     { id: 'text', label: 'Text', type: 'text' },
     { id: 'fontFamily', label: 'Font Family', type: 'select' },
     { id: 'fontSize', label: 'Font Size', type: 'number' },
+    { id: 'width', label: 'Width', type: 'number' },
+    { id: 'height', label: 'Height', type: 'number' },
     { id: 'xPosition', label: 'X Position', type: 'number' },
     { id: 'yPosition', label: 'Y Position', type: 'number' },
+    { id: 'color', label: 'Color (hex)', type: 'text' },
+    { id: 'textAlign', label: 'Horizontal Alignment', type: 'select' },
+    { id: 'verticalAlign', label: 'Vertical Alignment', type: 'select' },
   ],
 };
 
@@ -81,6 +86,43 @@ const AddWidgetModal = ({ fontFamilies, onClose, onAdd }) => {
                     setAttributes({
                       ...attributes,
                       [id]: selectedFontFamily.label,
+                      type: widgetType,
+                    });
+                  }}
+                />
+              );
+            } else if (id === 'textAlign') {
+              return (
+                <Listbox
+                  label={label}
+                  options={[
+                    { id: 'left', label: 'Left' },
+                    { id: 'center', label: 'Center' },
+                    { id: 'right', label: 'Right' },
+                    { id: 'justify', label: 'Justify' },
+                  ]}
+                  onChange={(nextTextAlign) => {
+                    setAttributes({
+                      ...attributes,
+                      [id]: nextTextAlign,
+                      type: widgetType,
+                    });
+                  }}
+                />
+              );
+            } else if (id === 'verticalAlign') {
+              return (
+                <Listbox
+                  label={label}
+                  options={[
+                    { id: 'top', label: 'Top' },
+                    { id: 'middle', label: 'Middle' },
+                    { id: 'bottom', label: 'Bottom' },
+                  ]}
+                  onChange={(nextVerticalAlign) => {
+                    setAttributes({
+                      ...attributes,
+                      [id]: nextVerticalAlign,
                       type: widgetType,
                     });
                   }}

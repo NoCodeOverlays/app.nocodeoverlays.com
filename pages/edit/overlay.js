@@ -1,8 +1,14 @@
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { Button, Input } from '@amb-codes-crafts/a11y-components';
 import { firebaseAPI } from '../../lib/firebase';
 import { useOverlay } from '../../context/overlay';
-import { AddWidgetModal, Icon, Layout, Sidebar } from '../../components';
+import {
+  AddWidgetModal,
+  Icon,
+  Layout,
+  Overlay,
+  Sidebar,
+} from '../../components';
 import styles from '../../stylesheets/Pages.module.scss';
 
 const EditOverlayPage = ({ fontFamilies }) => {
@@ -12,6 +18,14 @@ const EditOverlayPage = ({ fontFamilies }) => {
   const [width, setWidth] = useState(data.width || '');
   const [height, setHeight] = useState(data.height || '');
   const [widgets, setWidgets] = useState(data.widgets || {});
+
+  useEffect(() => {
+    if (data) {
+      setWidth(data.width);
+      setHeight(data.height);
+      setWidgets(data.widgets);
+    }
+  }, [data, loading]);
 
   useLayoutEffect(() => {
     const WebFont = require('webfontloader');
@@ -33,64 +47,7 @@ const EditOverlayPage = ({ fontFamilies }) => {
     <Layout title="Edit Overlay">
       <div className={styles.EditOverlay}>
         <p>Your Preview</p>
-        <div
-          style={{
-            position: 'relative',
-            width: `${width}px`,
-            height: `${height}px`,
-            border: '1px solid black',
-            overflow: 'hidden',
-          }}
-        >
-          {Object.keys(widgets).map((widgetKey, index) => {
-            const widget = widgets[widgetKey];
-            if (widget.type === 'color') {
-              return (
-                <div
-                  key={`widget-${index}`}
-                  style={{
-                    width: `${widget.width}px`,
-                    height: `${widget.height}px`,
-                    backgroundColor: widget.color,
-                    position: 'absolute',
-                    top: `${widget.yPosition}px`,
-                    left: `${widget.xPosition}px`,
-                  }}
-                ></div>
-              );
-            } else if (widget.type === 'image') {
-              return (
-                <img
-                  key={`widget-${index}`}
-                  src={widget.url}
-                  style={{
-                    width: `${widget.width}px`,
-                    height: `${widget.height}px`,
-                    position: 'absolute',
-                    top: `${widget.yPosition}px`,
-                    left: `${widget.xPosition}px`,
-                  }}
-                />
-              );
-            } else if (widget.type === 'text') {
-              return (
-                <span
-                  key={`widget-${index}`}
-                  style={{
-                    width: 'fit-content',
-                    position: 'absolute',
-                    top: `${widget.yPosition}px`,
-                    left: `${widget.xPosition}px`,
-                    fontFamily: widget.fontFamily,
-                    fontSize: `${widget.fontSize}px`,
-                  }}
-                >
-                  {widget.text}
-                </span>
-              );
-            }
-          })}
-        </div>
+        <Overlay width={width} height={height} widgets={widgets} />
         <Sidebar>
           <div>
             <h2>Dimensions</h2>
