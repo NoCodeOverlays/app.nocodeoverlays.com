@@ -2,8 +2,10 @@
 
 .Layout {
   header {
+    width: 100%;
     height: $header-height;
     display: flex;
+    flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
     padding: 16px;
@@ -14,10 +16,22 @@
     span {
       margin-right: 8px;
     }
+
+    @media screen and (max-width: 700px) {
+      justify-content: center;
+      flex-direction: column;
+      flex-wrap: wrap;
+      height: 1.5 * $header-height;
+
+      button {
+        padding: 4px 8px;
+      }
+    }
   }
 
   main {
     padding: 24px;
+    overflow: scroll;
   }
 
   &--fullscreen {
