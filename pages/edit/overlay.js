@@ -14,6 +14,8 @@ import styles from '../../stylesheets/Pages.module.scss';
 const EditOverlayPage = ({ fontFamilies }) => {
   const { data, dataLoading } = useOverlay();
   const [showAddWidgetModal, setShowAddWidgetModal] = useState(false);
+  const [widthTypingTimeout, setWidthTypingTimeout] = useState();
+  const [heightTypingTimeout, setHeightTypingTimeout] = useState();
   const [isSaving, setIsSaving] = useState(false);
   const [width, setWidth] = useState(data.width);
   const [height, setHeight] = useState(data.height);
@@ -45,6 +47,40 @@ const EditOverlayPage = ({ fontFamilies }) => {
     return <h1>Loading...</h1>;
   }
 
+  const updateWidth = (width) => {
+    setWidth(width);
+
+    if (widthTypingTimeout) {
+      clearTimeout(widthTypingTimeout);
+    }
+
+    setWidthTypingTimeout(
+      setTimeout(() => {
+        setIsSaving(true);
+        firebaseAPI('updateOverlayWidth', width).then(() => {
+          setIsSaving(false);
+        });
+      }, 1000),
+    );
+  };
+
+  const updateHeight = (height) => {
+    setHeight(height);
+
+    if (heightTypingTimeout) {
+      clearTimeout(heightTypingTimeout);
+    }
+
+    setHeightTypingTimeout(
+      setTimeout(() => {
+        setIsSaving(true);
+        firebaseAPI('updateOverlayHeight', height).then(() => {
+          setIsSaving(false);
+        });
+      }, 1000),
+    );
+  };
+
   return (
     <Layout title="No-Code Overlays | Edit Overlay">
       <div className={styles.EditOverlay}>
@@ -52,7 +88,16 @@ const EditOverlayPage = ({ fontFamilies }) => {
         <Overlay width={width} height={height} widgets={widgets} />
         <Sidebar>
           <div>
-            <h2>Dimensions</h2>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <h2>Dimensions</h2>
+              {isSaving && <Icon name="spinner" spin small />}
+            </div>
             <div
               style={{
                 display: 'flex',
@@ -65,7 +110,7 @@ const EditOverlayPage = ({ fontFamilies }) => {
                 label="Width (px)"
                 value={width}
                 onChange={(e) => {
-                  setWidth(e.target.value);
+                  updateWidth(e.target.value);
                 }}
               />
               <Input
@@ -74,7 +119,7 @@ const EditOverlayPage = ({ fontFamilies }) => {
                 label="Height (px)"
                 value={height}
                 onChange={(e) => {
-                  setHeight(e.target.value);
+                  updateHeight(e.target.value);
                 }}
               />
             </div>
@@ -121,14 +166,12 @@ const EditOverlayPage = ({ fontFamilies }) => {
                           onClick={() => {
                             delete widgets[widgetKey];
                             setIsSaving(true);
-                            firebaseAPI('updateOverlayData', {
-                              width,
-                              height,
-                              widgets,
-                            }).then(() => {
-                              setWidgets({ ...widgets });
-                              setIsSaving(false);
-                            });
+                            firebaseAPI('updateOverlayWidgets', widgets).then(
+                              () => {
+                                setWidgets({ ...widgets });
+                                setIsSaving(false);
+                              },
+                            );
                           }}
                           style={{
                             position: 'absolute',
@@ -149,17 +192,6 @@ const EditOverlayPage = ({ fontFamilies }) => {
                 : 'No widgets yet.'}
             </div>
           </div>
-          <Button
-            disabled={isSaving}
-            onClick={() => {
-              setIsSaving(true);
-              firebaseAPI('updateOverlayData', { width, height }).then(() => {
-                setIsSaving(false);
-              });
-            }}
-          >
-            {isSaving ? 'Saving...' : 'Save'}
-          </Button>
         </Sidebar>
         {showAddWidgetModal && (
           <AddWidgetModal
