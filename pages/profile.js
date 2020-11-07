@@ -42,6 +42,7 @@ const ProfilePage = () => {
                 onChange={(e) => {
                   setDisplayName(e.target.value);
                 }}
+                style={{ width: '100%' }}
               />
             </div>
             <Button
@@ -73,6 +74,7 @@ const ProfilePage = () => {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
+                style={{ width: '100%' }}
               />
             </div>
             {!!email && email !== userObject.email ? (
@@ -121,6 +123,7 @@ const ProfilePage = () => {
                 onChange={(e) => {
                   setNewPassword(e.target.value);
                 }}
+                style={{ width: '100%' }}
               />
             </div>
             <Button

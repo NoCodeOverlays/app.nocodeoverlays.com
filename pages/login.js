@@ -44,6 +44,7 @@ const LoginPage = () => {
           onChange={(e) => {
             setEmail(e.target.value);
           }}
+          style={{ width: '100%' }}
         />
         <Input
           id="password"
@@ -53,6 +54,7 @@ const LoginPage = () => {
           onChange={(e) => {
             setPassword(e.target.value);
           }}
+          style={{ width: '100%' }}
         />
         <Button
           onClick={() => {
