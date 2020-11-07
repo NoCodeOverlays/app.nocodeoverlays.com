@@ -12,20 +12,22 @@ import {
 import styles from '../../stylesheets/Pages.module.scss';
 
 const EditOverlayPage = ({ fontFamilies }) => {
-  const { data = {}, dataLoading } = useOverlay();
+  const { data, dataLoading } = useOverlay();
   const [showAddWidgetModal, setShowAddWidgetModal] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [width, setWidth] = useState(data.width || '');
-  const [height, setHeight] = useState(data.height || '');
-  const [widgets, setWidgets] = useState(data.widgets || {});
+  const [width, setWidth] = useState(data.width);
+  const [height, setHeight] = useState(data.height);
+  const [widgets, setWidgets] = useState(data.widgets);
 
   useEffect(() => {
-    if (data) {
-      setWidth(data.width);
-      setHeight(data.height);
-      setWidgets(data.widgets);
+    if (dataLoading) {
+      return;
     }
-  }, [data, dataLoading]);
+
+    setWidth(data.width);
+    setHeight(data.height);
+    setWidgets(data.widgets);
+  }, [dataLoading]);
 
   useLayoutEffect(() => {
     const WebFont = require('webfontloader');
