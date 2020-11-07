@@ -145,6 +145,7 @@ const AddWidgetModal = ({ fontFamilies, onClose, onAdd }) => {
                     type: widgetType,
                   });
                 }}
+                style={{ width: '100%' }}
               />
             );
           })}
