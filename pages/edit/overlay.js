@@ -112,6 +112,7 @@ const EditOverlayPage = ({ fontFamilies }) => {
                 onChange={(e) => {
                   updateWidth(e.target.value);
                 }}
+                style={{ marginRight: 12 }}
               />
               <Input
                 id="height"
