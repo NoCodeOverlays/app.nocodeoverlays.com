@@ -15,7 +15,7 @@ const typesToAttributes = {
     { id: 'height', label: 'Height', type: 'number' },
     { id: 'xPosition', label: 'X Position', type: 'number' },
     { id: 'yPosition', label: 'Y Position', type: 'number' },
-    { id: 'color', label: 'Color (Hex)', type: 'text' },
+    { id: 'color', label: 'Color (Hex)', type: 'color' },
   ],
   image: [
     { id: 'width', label: 'Width', type: 'number' },
