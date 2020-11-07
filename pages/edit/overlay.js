@@ -87,7 +87,7 @@ const EditOverlayPage = ({ fontFamilies }) => {
                   setShowAddWidgetModal(true);
                 }}
               >
-                <Icon name="plus" />
+                <Icon name="plus" small />
               </Button>
             </div>
             <div>
