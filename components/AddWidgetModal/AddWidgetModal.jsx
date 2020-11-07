@@ -15,7 +15,7 @@ const typesToAttributes = {
     { id: 'height', label: 'Height', type: 'number' },
     { id: 'xPosition', label: 'X Position', type: 'number' },
     { id: 'yPosition', label: 'Y Position', type: 'number' },
-    { id: 'color', label: 'Color (Hex)', type: 'color' },
+    { id: 'color', label: 'Color', type: 'color' },
   ],
   image: [
     { id: 'width', label: 'Width', type: 'number' },
@@ -32,7 +32,7 @@ const typesToAttributes = {
     { id: 'height', label: 'Height', type: 'number' },
     { id: 'xPosition', label: 'X Position', type: 'number' },
     { id: 'yPosition', label: 'Y Position', type: 'number' },
-    { id: 'color', label: 'Color (hex)', type: 'text' },
+    { id: 'color', label: 'Color', type: 'color' },
     { id: 'textAlign', label: 'Horizontal Alignment', type: 'select' },
     { id: 'verticalAlign', label: 'Vertical Alignment', type: 'select' },
   ],
