@@ -49,7 +49,7 @@ const Layout = ({ title, children, fullscreen }) => {
           </h1>
         </Link>
         <div>
-          <span>Hey, {user.email}!</span>
+          <span>Hey, {user.displayName || user.email}!</span>
           <Button
             onClick={() => {
               firebaseAPI('signOut');
