@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Button } from '@amb-codes-crafts/a11y-components';
 import classNames from 'classnames/bind';
@@ -42,7 +43,11 @@ const Layout = ({ title, children, fullscreen }) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <header>
-        <h1>No-Code Overlays</h1>
+        <Link href="/">
+          <h1>
+            <a>No-Code Overlays</a>
+          </h1>
+        </Link>
         <div>
           <span>Hey, {user.email}!</span>
           <Button
