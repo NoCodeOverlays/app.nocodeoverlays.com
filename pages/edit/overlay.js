@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { Button, Input } from '@amb-codes-crafts/a11y-components';
+import { Button, Input } from 'a11y-components';
 import { firebaseAPI } from '../../lib/firebase';
 import { useOverlay } from '../../context/overlay';
 import {

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { firebaseAPI } from '../lib/firebase';
-import { Button, Input } from '@amb-codes-crafts/a11y-components';
+import { Button, Input } from 'a11y-components';
 
 import styles from '../stylesheets/Pages.module.scss';
 import { useAuth } from '../context/auth';

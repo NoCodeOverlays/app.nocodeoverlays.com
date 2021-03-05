@@ -1,5 +1,5 @@
 import { useState, useLayoutEffect } from 'react';
-import { Button, Input, Listbox } from '@amb-codes-crafts/a11y-components';
+import { Button, Input, Listbox } from 'a11y-components';
 import { Modal } from '../';
 
 const widgetTypeOptions = [
