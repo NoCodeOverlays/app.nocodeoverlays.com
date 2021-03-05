@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../context/auth';
-import { Button, Input } from '@amb-codes-crafts/a11y-components';
+import { Button, Input } from 'a11y-components';
 import { Layout } from '../components';
 
 const ProfilePage = () => {

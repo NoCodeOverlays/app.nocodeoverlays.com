@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Button } from '@amb-codes-crafts/a11y-components';
+import { Button } from 'a11y-components';
 import classNames from 'classnames/bind';
 import { useAuth } from '../../context/auth';
 import { firebaseAPI } from '../../lib/firebase';
