@@ -68,16 +68,17 @@ const EditOverlayPage = ({ fontFamilies }) => {
               setShowAddWidgetModal(false);
             }}
             onAdd={(attributes) => {
-              firebaseAPI('createOverlayWidget', attributes).then(
-                (newWidget) => {
-                  const newWidgetKey = Object.keys(newWidget)[0];
-                  setWidgets({
-                    ...widgets,
-                    [newWidgetKey]: newWidget[newWidgetKey],
-                  });
-                  setShowAddWidgetModal(false);
-                },
-              );
+              firebaseAPI('createOverlayWidget', {
+                ...attributes,
+                position: Object.keys(widgets).length,
+              }).then((newWidget) => {
+                const newWidgetKey = Object.keys(newWidget)[0];
+                setWidgets({
+                  ...widgets,
+                  [newWidgetKey]: newWidget[newWidgetKey],
+                });
+                setShowAddWidgetModal(false);
+              });
             }}
           />
         )}
