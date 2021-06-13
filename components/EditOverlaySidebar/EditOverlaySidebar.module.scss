@@ -38,4 +38,13 @@
       }
     }
   }
+
+  .DimensionInputs {
+    display: flex;
+    justify-content: space-between;
+
+    & > :first-child {
+      margin-right: 12px;
+    }
+  }
 }

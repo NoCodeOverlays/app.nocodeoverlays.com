@@ -2,9 +2,8 @@ import { useState } from 'react';
 import { Button, Input } from 'a11y-components';
 import { firebaseAPI } from '../../lib/firebase';
 import { Icon } from '../../components';
+import WidgetList from './components/WidgetList';
 import styles from './EditOverlaySidebar.module.scss';
-
-console.log(styles);
 
 const EditOverlaySidebar = ({
   height,
@@ -61,30 +60,20 @@ const EditOverlaySidebar = ({
           <h2>Dimensions</h2>
           {isSaving && <Icon name="spinner" spin small />}
         </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}
-        >
+        <div className={styles.DimensionInputs}>
           <Input
             id="width"
             type="number"
             label="Width (px)"
             value={width}
-            onChange={(e) => {
-              updateWidth(e.target.value);
-            }}
-            style={{ marginRight: 12 }}
+            onChange={(e) => updateWidth(e.target.value)}
           />
           <Input
             id="height"
             type="number"
             label="Height (px)"
             value={height}
-            onChange={(e) => {
-              updateHeight(e.target.value);
-            }}
+            onChange={(e) => updateHeight(e.target.value)}
           />
         </div>
       </section>
@@ -100,68 +89,15 @@ const EditOverlaySidebar = ({
           </Button>
         </div>
         <div>
-          {Object.keys(widgets).length
-            ? Object.keys(widgets).map((widgetKey) => {
-                const widget = widgets[widgetKey];
-                return (
-                  <details
-                    key={`widget-${widgetKey}`}
-                    style={{
-                      border: '1px solid gray',
-                      borderRadius: '4px',
-                      marginBottom: '12px',
-                      hover: 'cursor',
-                      position: 'relative',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    <summary
-                      style={{
-                        alignItems: 'center',
-                        display: 'flex',
-                        padding: '12px',
-                        justifyContent: 'space-between',
-                      }}
-                    >
-                      <span>{widget.type}</span>
-                      <Icon
-                        name="trash-alt"
-                        small
-                        type="button"
-                        onClick={() => {
-                          delete widgets[widgetKey];
-                          setIsSaving(true);
-                          firebaseAPI('updateOverlayWidgets', widgets).then(
-                            () => {
-                              setWidgets({ ...widgets });
-                              setIsSaving(false);
-                            },
-                          );
-                        }}
-                      />
-                    </summary>
-                    <div
-                      style={{
-                        padding: '12px',
-                        borderTop: '1px solid gray',
-                      }}
-                    >
-                      {Object.keys(widget).map((attribute) => (
-                        <span
-                          key={`widgetAttribute-${attribute}-${widgetKey}`}
-                          style={{ display: 'block' }}
-                        >
-                          <strong>{attribute}:</strong>{' '}
-                          {widget[attribute].family
-                            ? widget[attribute].family
-                            : widget[attribute]}
-                        </span>
-                      ))}
-                    </div>
-                  </details>
-                );
-              })
-            : 'No widgets yet.'}
+          {Object.keys(widgets).length ? (
+            <WidgetList
+              setIsSaving={setIsSaving}
+              setWidgets={setWidgets}
+              widgets={widgets}
+            />
+          ) : (
+            'No widgets yet.'
+          )}
         </div>
       </section>
     </div>
