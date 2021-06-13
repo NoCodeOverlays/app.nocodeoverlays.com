@@ -150,53 +150,68 @@ const EditOverlayPage = ({ fontFamilies }) => {
                 ? Object.keys(widgets).map((widgetKey) => {
                     const widget = widgets[widgetKey];
                     return (
-                      <div
+                      <details
                         key={`widget-${widgetKey}`}
                         style={{
                           border: '1px solid gray',
                           borderRadius: '4px',
-                          padding: '12px',
                           marginBottom: '12px',
                           hover: 'cursor',
                           position: 'relative',
+                          cursor: 'pointer',
                         }}
                       >
-                        {Object.keys(widget).map((attribute) => (
-                          <span
-                            key={`widgetAttribute-${attribute}-${widgetKey}`}
-                            style={{ display: 'block' }}
-                          >
-                            <strong>{attribute}:</strong>{' '}
-                            {widget[attribute].family
-                              ? widget[attribute].family
-                              : widget[attribute]}
-                          </span>
-                        ))}
-                        <Button
-                          onClick={() => {
-                            delete widgets[widgetKey];
-                            setIsSaving(true);
-                            firebaseAPI('updateOverlayWidgets', widgets).then(
-                              () => {
-                                setWidgets({ ...widgets });
-                                setIsSaving(false);
-                              },
-                            );
-                          }}
+                        <summary
                           style={{
-                            position: 'absolute',
-                            top: 12,
-                            right: 12,
-                            borderRadius: '50%',
-                            backgroundColor: 'transparent',
-                            color: 'black',
-                            border: 'none',
-                            boxShadow: 'none',
+                            alignItems: 'center',
+                            display: 'flex',
+                            padding: '12px',
+                            justifyContent: 'space-between',
                           }}
                         >
-                          <Icon name="trash-alt" small />
-                        </Button>
-                      </div>
+                          <span>{widget.type}</span>
+                          <Button
+                            onClick={() => {
+                              delete widgets[widgetKey];
+                              setIsSaving(true);
+                              firebaseAPI('updateOverlayWidgets', widgets).then(
+                                () => {
+                                  setWidgets({ ...widgets });
+                                  setIsSaving(false);
+                                },
+                              );
+                            }}
+                            style={{
+                              borderRadius: '50%',
+                              backgroundColor: 'transparent',
+                              color: 'black',
+                              border: 'none',
+                              boxShadow: 'none',
+                              padding: 0,
+                            }}
+                          >
+                            <Icon name="trash-alt" small />
+                          </Button>
+                        </summary>
+                        <div
+                          style={{
+                            padding: '12px',
+                            borderTop: '1px solid gray',
+                          }}
+                        >
+                          {Object.keys(widget).map((attribute) => (
+                            <span
+                              key={`widgetAttribute-${attribute}-${widgetKey}`}
+                              style={{ display: 'block' }}
+                            >
+                              <strong>{attribute}:</strong>{' '}
+                              {widget[attribute].family
+                                ? widget[attribute].family
+                                : widget[attribute]}
+                            </span>
+                          ))}
+                        </div>
+                      </details>
                     );
                   })
                 : 'No widgets yet.'}
