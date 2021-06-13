@@ -1,6 +1,6 @@
 @import '../../stylesheets/variables';
 
-.Sidebar {
+.EditOverlaySidebar {
   width: 300px;
   height: calc(100vh - #{$header-height});
   max-height: calc(100vh - #{$header-height});
