@@ -9,7 +9,7 @@ import {
   Overlay,
   Sidebar,
 } from '../../components';
-import styles from '../../stylesheets/Pages.module.scss';
+import styles from '../../stylesheets/EditOverlayPage.module.scss';
 
 const EditOverlayPage = ({ fontFamilies }) => {
   const { data, dataLoading } = useOverlay();
@@ -83,16 +83,9 @@ const EditOverlayPage = ({ fontFamilies }) => {
 
   return (
     <Layout title="No-Code Overlays | Edit Overlay">
-      <div className={styles.EditOverlay}>
+      <div className={styles.EditOverlayPage}>
         <p>Your Preview</p>
-        <div
-          style={{
-            maxWidth: 'calc(100vw - 350px)',
-            maxHeight: '100%',
-            overflow: 'scroll',
-            border: '1px solid black',
-          }}
-        >
+        <div className={styles.OverlayContainer}>
           <Overlay width={width} height={height} widgets={widgets} />
         </div>
         <Sidebar>
