@@ -124,7 +124,10 @@ const EditOverlaySidebar = ({
                       }}
                     >
                       <span>{widget.type}</span>
-                      <Button
+                      <Icon
+                        name="trash-alt"
+                        small
+                        type="button"
                         onClick={() => {
                           delete widgets[widgetKey];
                           setIsSaving(true);
@@ -135,17 +138,7 @@ const EditOverlaySidebar = ({
                             },
                           );
                         }}
-                        style={{
-                          borderRadius: '50%',
-                          backgroundColor: 'transparent',
-                          color: 'black',
-                          border: 'none',
-                          boxShadow: 'none',
-                          padding: 0,
-                        }}
-                      >
-                        <Icon name="trash-alt" small />
-                      </Button>
+                      />
                     </summary>
                     <div
                       style={{
