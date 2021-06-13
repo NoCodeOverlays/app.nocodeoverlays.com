@@ -85,7 +85,16 @@ const EditOverlayPage = ({ fontFamilies }) => {
     <Layout title="No-Code Overlays | Edit Overlay">
       <div className={styles.EditOverlay}>
         <p>Your Preview</p>
-        <Overlay width={width} height={height} widgets={widgets} />
+        <div
+          style={{
+            maxWidth: 'calc(100vw - 350px)',
+            maxHeight: '100%',
+            overflow: 'scroll',
+            border: '1px solid black',
+          }}
+        >
+          <Overlay width={width} height={height} widgets={widgets} />
+        </div>
         <Sidebar>
           <div>
             <div
