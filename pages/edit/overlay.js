@@ -53,7 +53,10 @@ const EditOverlayPage = ({ fontFamilies }) => {
         <EditOverlaySidebar
           height={height}
           isSaving={isSaving}
+          setHeight={setHeight}
           setIsSaving={setIsSaving}
+          setWidgets={setWidgets}
+          setWidth={setWidth}
           widgets={widgets}
           width={width}
         />

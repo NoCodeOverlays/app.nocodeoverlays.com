@@ -1,9 +1,21 @@
 import { useState } from 'react';
 import { Button, Input } from 'a11y-components';
+import { firebaseAPI } from '../../lib/firebase';
 import { Icon } from '../../components';
 import styles from './EditOverlaySidebar.module.scss';
 
-const EditOverlaySidebar = ({ height, isSaving, widgets, width }) => {
+console.log(styles);
+
+const EditOverlaySidebar = ({
+  height,
+  isSaving,
+  setHeight,
+  setIsSaving,
+  setWidgets,
+  setWidth,
+  widgets,
+  width,
+}) => {
   const [widthTypingTimeout, setWidthTypingTimeout] = useState();
   const [heightTypingTimeout, setHeightTypingTimeout] = useState();
 
@@ -43,14 +55,8 @@ const EditOverlaySidebar = ({ height, isSaving, widgets, width }) => {
 
   return (
     <div className={styles.EditOverlaySidebar}>
-      <div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
+      <section>
+        <div className={styles.SectionTitle}>
           <h2>Dimensions</h2>
           {isSaving && <Icon name="spinner" spin small />}
         </div>
@@ -80,9 +86,9 @@ const EditOverlaySidebar = ({ height, isSaving, widgets, width }) => {
             }}
           />
         </div>
-      </div>
-      <div>
-        <div>
+      </section>
+      <section>
+        <div className={styles.SectionTitle}>
           <h2>Widgets</h2>
           <Button
             onClick={() => {
@@ -163,7 +169,7 @@ const EditOverlaySidebar = ({ height, isSaving, widgets, width }) => {
               })
             : 'No widgets yet.'}
         </div>
-      </div>
+      </section>
     </div>
   );
 };

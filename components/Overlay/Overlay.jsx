@@ -4,6 +4,8 @@ const Overlay = ({ width, height, widgets }) => (
       position: 'relative',
       width: `${width}px`,
       height: `${height}px`,
+      overflow: 'hidden',
+      backgroundColor: 'white',
     }}
   >
     {Object.keys(widgets).map((widgetKey, index) => {
