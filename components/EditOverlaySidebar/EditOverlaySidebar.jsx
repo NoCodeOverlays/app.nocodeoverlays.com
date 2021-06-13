@@ -11,6 +11,7 @@ const EditOverlaySidebar = ({
   isSaving,
   setHeight,
   setIsSaving,
+  setShowAddWidgetModal,
   setWidgets,
   setWidth,
   widgets,

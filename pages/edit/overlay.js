@@ -55,6 +55,7 @@ const EditOverlayPage = ({ fontFamilies }) => {
           isSaving={isSaving}
           setHeight={setHeight}
           setIsSaving={setIsSaving}
+          setShowAddWidgetModal={setShowAddWidgetModal}
           setWidgets={setWidgets}
           setWidth={setWidth}
           widgets={widgets}
