@@ -2,7 +2,7 @@ import { AuthProvider } from '../context/auth';
 import { OverlayProvider } from '../context/overlay';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import 'a11y-components';
+import 'a11y-components/dist/Listbox/Listbox.css';
 import '../stylesheets/global.scss';
 
 library.add(fas);
