@@ -1,25 +1,26 @@
 import { firebaseAPI } from '../../../lib/firebase';
+import { useOverlay } from '../../../context/overlay';
 import Widget from './Widget';
 
-const WidgetList = ({ setIsSaving, setWidgets, widgets }) =>
-  Object.keys(widgets)
-    .sort((a, b) => (a.position < b.position ? -1 : 1))
-    .map((widgetKey) => {
-      const widget = widgets[widgetKey];
-      return (
-        <Widget
-          deleteWidget={() => {
-            delete widgets[widgetKey];
-            setIsSaving(true);
-            firebaseAPI('updateOverlayWidgets', widgets).then(() => {
-              setWidgets({ ...widgets });
-              setIsSaving(false);
-            });
-          }}
-          widget={widget}
-          widgetKey={widgetKey}
-        />
-      );
-    });
+const WidgetList = ({ setIsSaving }) => {
+  const { data, setData } = useOverlay();
+  const { widgets } = data;
+
+  return widgets.map((widget, index) => {
+    return (
+      <Widget
+        deleteWidget={() => {
+          widgets.splice(index, 1);
+          setIsSaving(true);
+          firebaseAPI('deleteWidget', widget).then(() => {
+            setData({ ...data, widgets: [...widgets] });
+            setIsSaving(false);
+          });
+        }}
+        widget={widget}
+      />
+    );
+  });
+};
 
 export default WidgetList;

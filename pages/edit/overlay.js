@@ -10,7 +10,7 @@ import {
 import styles from '../../stylesheets/EditOverlayPage.module.scss';
 
 const EditOverlayPage = ({ fontFamilies }) => {
-  const { data, dataLoading } = useOverlay();
+  const { data, dataLoading, setDataLoading, setData } = useOverlay();
   const [showAddWidgetModal, setShowAddWidgetModal] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [width, setWidth] = useState(data.width);
@@ -68,16 +68,14 @@ const EditOverlayPage = ({ fontFamilies }) => {
               setShowAddWidgetModal(false);
             }}
             onAdd={(attributes) => {
+              setDataLoading(true);
               firebaseAPI('createOverlayWidget', {
                 ...attributes,
-                position: Object.keys(widgets).length,
+                position: widgets.length,
               }).then((newWidget) => {
-                const newWidgetKey = Object.keys(newWidget)[0];
-                setWidgets({
-                  ...widgets,
-                  [newWidgetKey]: newWidget[newWidgetKey],
-                });
+                setData({ ...data, widgets: [...data.widgets, newWidget] });
                 setShowAddWidgetModal(false);
+                setDataLoading(false);
               });
             }}
           />

@@ -89,12 +89,8 @@ const EditOverlaySidebar = ({
           </Button>
         </div>
         <div>
-          {Object.keys(widgets).length ? (
-            <WidgetList
-              setIsSaving={setIsSaving}
-              setWidgets={setWidgets}
-              widgets={widgets}
-            />
+          {widgets.length ? (
+            <WidgetList setIsSaving={setIsSaving} />
           ) : (
             'No widgets yet.'
           )}
