@@ -13,7 +13,7 @@ const Widget = ({
   <details className={styles.Widget} key={`widget-${widgetKey}`}>
     <summary>
       <span>{widget.type}</span>
-      <div>
+      <div className={styles.WidgetControls}>
         {canMoveUp && (
           <Icon name="arrow-up" small type="button" onClick={moveWidgetUp} />
         )}
