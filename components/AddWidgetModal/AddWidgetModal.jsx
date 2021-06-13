@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect } from 'react';
+import { useState } from 'react';
 import { Button, Input, Listbox } from 'a11y-components';
 import { Modal } from '../';
 
