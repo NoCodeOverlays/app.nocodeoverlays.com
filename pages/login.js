@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { firebaseAPI } from '../lib/firebase';
 import { Button, Input } from 'a11y-components';
-
-import styles from '../styles/Pages.module.scss';
-import { useAuth } from '../contexts/auth';
+import { useAuth } from '@contexts/auth';
+import { firebaseAPI } from '@lib/firebase';
+import styles from '@styles/Pages.module.scss';
 
 const LoginPage = () => {
   const router = useRouter();
