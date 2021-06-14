@@ -1,13 +1,13 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { firebaseAPI } from '../../lib/firebase';
-import { useOverlay } from '../../contexts/overlay';
+import { useOverlay } from '@contexts/overlay';
+import { firebaseAPI } from '@lib/firebase';
 import {
   AddWidgetModal,
   Layout,
   Overlay,
   EditOverlaySidebar,
-} from '../../components';
-import styles from '../../styles/EditOverlayPage.module.scss';
+} from '@components';
+import styles from '@styles/EditOverlayPage.module.scss';
 
 const EditOverlayPage = ({ fontFamilies }) => {
   const { data, dataLoading, setDataLoading, setData } = useOverlay();
