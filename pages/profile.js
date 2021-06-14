@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useAuth } from '../contexts/auth';
 import { Button, Input } from 'a11y-components';
-import { Layout } from '../components';
+import { useAuth } from '@contexts/auth';
+import { Layout } from '@components';
 
 const ProfilePage = () => {
   const { user, userLoading } = useAuth();
