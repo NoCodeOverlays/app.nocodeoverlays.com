@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { firebaseAPI } from '../lib/firebase';
 import { Button, Input } from 'a11y-components';
 
-import styles from '../stylesheets/Pages.module.scss';
+import styles from '../styles/Pages.module.scss';
 import { useAuth } from '../context/auth';
 
 const LoginPage = () => {

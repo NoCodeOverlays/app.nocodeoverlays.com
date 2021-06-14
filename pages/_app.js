@@ -3,7 +3,7 @@ import { OverlayProvider } from '../context/overlay';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import 'a11y-components/dist/Listbox/Listbox.css';
-import '../stylesheets/global.scss';
+import '../styles/global.scss';
 
 library.add(fas);
 

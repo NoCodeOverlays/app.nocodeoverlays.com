@@ -7,7 +7,7 @@ import {
   Overlay,
   EditOverlaySidebar,
 } from '../../components';
-import styles from '../../stylesheets/EditOverlayPage.module.scss';
+import styles from '../../styles/EditOverlayPage.module.scss';
 
 const EditOverlayPage = ({ fontFamilies }) => {
   const { data, dataLoading, setDataLoading, setData } = useOverlay();

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Icon, Layout } from '../components';
-import styles from '../stylesheets/Pages.module.scss';
+import styles from '../styles/Pages.module.scss';
 
 const links = [
   {
