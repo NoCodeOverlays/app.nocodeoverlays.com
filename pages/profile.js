@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { useAuth } from '../contexts/auth';
 import { Button, Input } from 'a11y-components';
 import { Layout } from '../components';
