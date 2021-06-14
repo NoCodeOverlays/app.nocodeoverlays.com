@@ -3,7 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'a11y-components';
 import styles from './Icon.module.scss';
 
-const Icon = ({ large, name = 'smile', onClick, small, spin, type }) => {
+const Icon = ({
+  disabled,
+  large,
+  name = 'smile',
+  onClick,
+  small,
+  spin,
+  type,
+}) => {
   let cx = classNames.bind(styles);
   let className = cx('Icon', {
     'Icon--small': !!small,
@@ -15,7 +23,11 @@ const Icon = ({ large, name = 'smile', onClick, small, spin, type }) => {
   );
   if (type === 'button') {
     return (
-      <Button className={styles.IconButton} onClick={onClick}>
+      <Button
+        className={styles.IconButton}
+        disabled={disabled}
+        onClick={disabled ? undefined : onClick}
+      >
         {icon}
       </Button>
     );
