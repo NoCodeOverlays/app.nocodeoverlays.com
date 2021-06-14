@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Input } from 'a11y-components';
-import { firebaseAPI } from '../../lib/firebase';
-import { Icon } from '../../components';
+import { firebaseAPI } from '@lib/firebase';
+import { Icon } from '@components';
 import WidgetList from './components/WidgetList';
 import styles from './EditOverlaySidebar.module.scss';
 

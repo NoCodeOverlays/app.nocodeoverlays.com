@@ -1,4 +1,4 @@
-import { Icon } from '../../../components';
+import { Icon } from '@components';
 import styles from './Widget.module.scss';
 
 const Widget = ({

@@ -1,5 +1,5 @@
 import { Button } from 'a11y-components';
-import { Icon } from '../';
+import { Icon } from '@components';
 import styles from './Modal.module.scss';
 
 const Modal = ({ children, title, onClose, buttons = [] }) => (

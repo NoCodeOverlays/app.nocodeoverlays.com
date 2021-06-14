@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Input } from 'a11y-components';
-import { Listbox, Modal } from '../';
+import { Listbox, Modal } from '@components';
 
 const widgetTypeOptions = [
   { id: '', label: 'Choose a type' },

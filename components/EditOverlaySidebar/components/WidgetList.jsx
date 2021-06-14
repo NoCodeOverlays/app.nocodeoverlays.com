@@ -1,5 +1,5 @@
-import { firebaseAPI } from '../../../lib/firebase';
-import { useOverlay } from '../../../contexts/overlay';
+import { useOverlay } from '@contexts/overlay';
+import { firebaseAPI } from '@lib/firebase';
 import Widget from './Widget';
 
 const WidgetList = ({ setIsSaving }) => {
