@@ -1,8 +1,17 @@
-export { AddWidgetModal } from './AddWidgetModal';
-export { Icon } from './Icon';
-export { Input } from './Input';
-export { Layout } from './Layout';
-export { Listbox } from './Listbox';
-export { Modal } from './Modal';
-export { Overlay } from './Overlay';
-export { EditOverlaySidebar } from './EditOverlaySidebar';
+import AddWidgetModal from './AddWidgetModal/AddWidgetModal';
+import Icon from './Icon/Icon';
+import Layout from './Layout/Layout';
+import Listbox from './Listbox/Listbox';
+import Modal from './Modal/Modal';
+import Overlay from './Overlay/Overlay';
+import EditOverlaySidebar from './EditOverlaySidebar/EditOverlaySidebar';
+
+export {
+  AddWidgetModal,
+  Icon,
+  Layout,
+  Listbox,
+  Modal,
+  Overlay,
+  EditOverlaySidebar,
+};
