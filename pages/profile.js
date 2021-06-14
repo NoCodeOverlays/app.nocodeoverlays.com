@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useAuth } from '../context/auth';
+import { useAuth } from '../contexts/auth';
 import { Button, Input } from 'a11y-components';
 import { Layout } from '../components';
 

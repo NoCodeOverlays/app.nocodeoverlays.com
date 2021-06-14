@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Button } from 'a11y-components';
 import classNames from 'classnames/bind';
-import { useAuth } from '../../context/auth';
+import { useAuth } from '../../contexts/auth';
 import { firebaseAPI } from '../../lib/firebase';
 import styles from './Layout.module.scss';
 
