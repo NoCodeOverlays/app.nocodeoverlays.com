@@ -1,6 +1,5 @@
 import { useLayoutEffect } from 'react';
-import { useAuth } from '@contexts/auth';
-import { useOverlay } from '@contexts/overlay';
+import { useAuth, useOverlay } from '@contexts';
 import { Layout, Overlay } from '@components';
 
 const OverlayPage = ({ fontFamilies }) => {

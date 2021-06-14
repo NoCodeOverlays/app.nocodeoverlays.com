@@ -1,4 +1,4 @@
-import { useOverlay } from '@contexts/overlay';
+import { useOverlay } from '@contexts';
 import { firebaseAPI } from '@lib/firebase';
 import Widget from './Widget';
 

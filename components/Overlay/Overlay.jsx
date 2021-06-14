@@ -1,4 +1,4 @@
-import { useOverlay } from '@contexts/overlay';
+import { useOverlay } from '@contexts';
 
 const Overlay = ({ width, height }) => {
   const { data } = useOverlay();

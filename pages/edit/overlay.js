@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { useOverlay } from '@contexts/overlay';
+import { useOverlay } from '@contexts';
 import { firebaseAPI } from '@lib/firebase';
 import {
   AddWidgetModal,

@@ -1,8 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import 'a11y-components/dist/Listbox/Listbox.css';
-import { AuthProvider } from '@contexts/auth';
-import { OverlayProvider } from '@contexts/overlay';
+import { AuthProvider, OverlayProvider } from '@contexts';
 import '@styles/global.scss';
 
 library.add(fas);

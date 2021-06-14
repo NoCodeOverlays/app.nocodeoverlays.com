@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Input } from 'a11y-components';
-import { useAuth } from '@contexts/auth';
+import { useAuth } from '@contexts';
 import { Layout } from '@components';
 
 const ProfilePage = () => {
