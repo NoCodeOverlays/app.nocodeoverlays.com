@@ -14,32 +14,40 @@ const Widget = ({
     <summary>
       <span>{widget.type}</span>
       <div className={styles.WidgetControls}>
-        {canMoveUp && (
-          <Icon name="arrow-up" small type="button" onClick={moveWidgetUp} />
-        )}
-        {canMoveDown && (
-          <Icon
-            name="arrow-down"
-            small
-            type="button"
-            onClick={moveWidgetDown}
-          />
-        )}
+        <Icon
+          disabled={!canMoveUp}
+          name="arrow-up"
+          onClick={moveWidgetUp}
+          small
+          type="button"
+        />
+        <Icon
+          disabled={!canMoveDown}
+          name="arrow-down"
+          onClick={moveWidgetDown}
+          small
+          type="button"
+        />
         <Icon name="trash-alt" small type="button" onClick={deleteWidget} />
       </div>
     </summary>
     <div>
-      {Object.keys(widget).map((attribute) => (
-        <span
-          key={`widgetAttribute-${attribute}-${widgetKey}`}
-          style={{ display: 'block' }}
-        >
-          <strong>{attribute}:</strong>{' '}
-          {widget[attribute].family
-            ? widget[attribute].family
-            : widget[attribute]}
-        </span>
-      ))}
+      {Object.keys(widget)
+        .filter((key) => key !== 'id')
+        .map((attribute) => (
+          <div className={styles.WidgetAttribute}>
+            <p key={`widgetAttribute-${attribute}-${widgetKey}`}>
+              <span>
+                <strong>{attribute}:</strong>
+              </span>{' '}
+              <span>
+                {widget[attribute].family
+                  ? widget[attribute].family
+                  : widget[attribute]}
+              </span>
+            </p>
+          </div>
+        ))}
     </div>
   </details>
 );

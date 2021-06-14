@@ -25,5 +25,15 @@
   & > div {
     padding: 12px;
     border-top: 1px solid gray;
+
+    .WidgetAttribute {
+      &:not(:last-child) {
+        margin-bottom: 8px;
+      }
+
+      p {
+        word-wrap: break-word;
+      }
+    }
   }
 }
