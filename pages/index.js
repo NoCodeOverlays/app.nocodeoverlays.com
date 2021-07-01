@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { Icon, Layout } from '../components';
-import styles from '../stylesheets/Pages.module.scss';
+import { Icon, Layout } from '@components';
+import styles from '@styles/Pages.module.scss';
 
 const links = [
   {
@@ -27,8 +27,6 @@ const HomePage = () => (
   <Layout title="No-Code Overlays App">
     <div className={styles.Home}>
       <h2>Welcome! Here are some things you can do.</h2>
-      <br />
-
       <div>
         {links.map((link) => (
           <Link href={link.href}>

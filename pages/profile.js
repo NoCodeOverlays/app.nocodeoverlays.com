@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useAuth } from '../context/auth';
+import { useState } from 'react';
 import { Button, Input } from 'a11y-components';
-import { Layout } from '../components';
+import { useAuth } from '@contexts';
+import { Layout } from '@components';
 
 const ProfilePage = () => {
   const { user, userLoading } = useAuth();

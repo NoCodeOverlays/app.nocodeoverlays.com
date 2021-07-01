@@ -1,0 +1,39 @@
+.Widget {
+  border: 1px solid gray;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  position: relative;
+  cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  summary {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+
+    .WidgetControls {
+      & > :not(:last-child) {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  & > div {
+    padding: 12px;
+    border-top: 1px solid gray;
+
+    .WidgetAttribute {
+      &:not(:last-child) {
+        margin-bottom: 8px;
+      }
+
+      p {
+        word-wrap: break-word;
+      }
+    }
+  }
+}

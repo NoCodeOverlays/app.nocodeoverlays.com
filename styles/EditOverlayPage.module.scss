@@ -1,0 +1,12 @@
+.EditOverlayPage {
+  & > p {
+    margin-bottom: 24px;
+  }
+
+  .OverlayContainer {
+    max-width: calc(100vw - 350px);
+    height: calc(100vh - 170px);
+    overflow: scroll;
+    border: 1px solid black;
+  }
+}

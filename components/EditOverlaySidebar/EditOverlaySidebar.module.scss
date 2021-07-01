@@ -1,6 +1,6 @@
-@import '../../stylesheets/variables';
+@import '../../styles/variables';
 
-.Sidebar {
+.EditOverlaySidebar {
   width: 300px;
   height: calc(100vh - #{$header-height});
   max-height: calc(100vh - #{$header-height});
@@ -19,16 +19,16 @@
   }
 
   // Section of the Sidebar
-  & > div {
-    & > div:first-child {
+  section {
+    &:not(:last-child) {
+      margin-bottom: 24px;
+    }
+
+    .SectionTitle {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 12px;
-
-      h2 {
-        margin-bottom: 0;
-      }
 
       button {
         width: 32px;
@@ -37,13 +37,14 @@
         padding: 0;
       }
     }
-
-    h2 {
-      margin-bottom: 12px;
-    }
   }
 
-  & > button:last-child {
-    margin-top: 60px;
+  .DimensionInputs {
+    display: flex;
+    justify-content: space-between;
+
+    & > :first-child {
+      margin-right: 12px;
+    }
   }
 }

@@ -1,4 +1,8 @@
 .Home {
+  & > h2 {
+    margin-bottom: 16px;
+  }
+
   & > div {
     display: flex;
     flex-wrap: nowrap;
@@ -64,11 +68,5 @@
     button {
       margin-top: 32px;
     }
-  }
-}
-
-.EditOverlay {
-  p {
-    margin-bottom: 24px;
   }
 }

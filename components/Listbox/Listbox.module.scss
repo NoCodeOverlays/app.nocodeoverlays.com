@@ -1,0 +1,46 @@
+.ListboxContainer {
+  margin-bottom: 16px;
+
+  .ListboxLabel {
+    font-weight: normal;
+  }
+
+  .ListboxButton {
+    background-color: rgba(#4c188e, 0.1);
+    border-radius: 8px;
+    border: 2px solid #4c188e;
+    box-shadow: none;
+    color: black;
+    font-size: 1rem;
+    line-height: 1.4rem;
+    padding: 4px;
+
+    &[aria-expanded='true'] {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom: 0;
+    }
+  }
+
+  .ListboxList {
+    border: 2px solid #4c188e;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    width: 100%;
+
+    .ListboxItem {
+      padding: 12px 16px;
+      position: relative;
+
+      &:hover {
+        background-color: rgba(#4c188e, 0.1);
+        cursor: pointer;
+      }
+
+      &[aria-selected='true'] {
+        background-color: rgba(#4c188e, 0.8);
+        color: white;
+      }
+    }
+  }
+}

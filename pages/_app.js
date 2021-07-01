@@ -1,9 +1,8 @@
-import { AuthProvider } from '../context/auth';
-import { OverlayProvider } from '../context/overlay';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import 'a11y-components';
-import '../stylesheets/global.scss';
+import 'a11y-components/dist/Listbox/Listbox.css';
+import { AuthProvider, OverlayProvider } from '@contexts';
+import '@styles/global.scss';
 
 library.add(fas);
 

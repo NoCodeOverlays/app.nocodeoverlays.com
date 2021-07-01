@@ -2,7 +2,7 @@ import { createContext, useState, useContext, useEffect } from 'react';
 import { useAuth } from './auth';
 import { firebaseAPI } from '../lib/firebase';
 
-const DEFAULT_DATA = { width: '', height: '', widgets: {} };
+const DEFAULT_DATA = { width: '', height: '', widgets: [] };
 const DEFAULT_DATA_LOADING = false;
 
 const OverlayContext = createContext({
@@ -24,7 +24,9 @@ export const OverlayProvider = ({ children }) => {
   }, [user, userLoading]);
 
   return (
-    <OverlayContext.Provider value={{ data, dataLoading }}>
+    <OverlayContext.Provider
+      value={{ data, dataLoading, setDataLoading, setData }}
+    >
       {children}
     </OverlayContext.Provider>
   );
